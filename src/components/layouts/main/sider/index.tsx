@@ -7,9 +7,8 @@ import { ContainerOutlined } from '@ant-design/icons';
 const sideImg = require("../../../../assets/sidebar-5.jpg");
 
 const Menus: React.FC = () => {
-
-	const [menus, setMenus] = useState([]);
-	const [activeMenu, setActiveMenu] = useState("/");
+ 
+	const [activeMenu, setActiveMenu] = useState("/admin/products");
  
  
 	function changeMenu(path: string, id: number) {
@@ -57,8 +56,8 @@ const Menus: React.FC = () => {
 					</Link>
 				</Menu.Item> 
 				
-				<Menu.Item icon={<ContainerOutlined rev="label" />} onClick={() => changeMenu("/admin/list/products", 0)} key='/admin/list/products'>
-					<Link to="/admin/list/products">
+				<Menu.Item icon={<ContainerOutlined rev="label" />} onClick={() => changeMenu("/admin/products", 0)} key='/admin/products'>
+					<Link to="/admin/products">
 						Məhsullar
 					</Link>
 				</Menu.Item> 
