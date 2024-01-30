@@ -7,14 +7,14 @@ const Products = React.lazy(() => import('../../pages/ProductsPage'));
      
 
 export const AppRouter: React.FC = () => {
- 
+  
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/admin" element={sessionStorage.getItem("token") !==null ? <AppLayout /> : <Navigate  to="/" />}>
           <Route path="products" element={<Products />} />
         </Route>
-        <Route path="/">
+        <Route path="/" element={sessionStorage.getItem("token") ===null ? null : <Navigate  to="/admin/products" />}>
           <Route path="/" element={<LoginPage />} /> 
         </Route> 
       </Routes>
