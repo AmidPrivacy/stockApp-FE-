@@ -34,7 +34,7 @@ const AppLayout: React.FC = (props) => {
         fontSize: "25px", fontWeight: "bold", letterSpacing: "1px"
       }}>
         <span style={{ float: 'left', paddingLeft: '3px' }}>MENU</span>
-        ONLINE SHOP {sessionStorage.getItem("referral_code") !== null && sessionStorage.getItem("referral_code") !== 'null' ? '(Referral code: ' + sessionStorage.getItem("referral_code") + ')': ""}
+        ONLINE SHOP
 
         <Dropdown overlay={menu}>
           <a

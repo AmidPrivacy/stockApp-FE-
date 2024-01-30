@@ -33,8 +33,8 @@ const Products: React.FC = () => {
   function getProducts(page: any = pagination) {
     setLoading(true);
     fetchProductList(page, search).then((res:any)=>{ 
-      setProducts(res.data.data.products); 
-      setPagination(prevState => ({ ...prevState,  total: res.data.data.totalCount }));
+      setProducts(res.data.data); 
+      // setPagination(prevState => ({ ...prevState,  total: res.data.data.totalCount }));
       setLoading(false);
     }).catch((_err:any) => {
       setLoading(false);

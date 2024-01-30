@@ -4,7 +4,7 @@ import {  message } from 'antd';
  
 
 export const signIn = (body: object) => {
-	return axios.post(`${config().apiUrl}/auth/user/login`, body).catch(err=>{
+	return axios.post(`${config().apiUrl}/auth/admin/login`, body).catch(err=>{
 		message.error("Sistem xətası");
 		console.log(err);
 	});

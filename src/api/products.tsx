@@ -13,7 +13,7 @@ export const fetchProductList = (page:any, search: Search) => {
 }; 
 
 export const fetchProductById = (id:number) => {
-	return axios.get(config().apiUrl + "/api/product/"+ id, 
+	return axios.get(config().apiUrl + "/products/"+ id, 
 	{ headers: config().headers }).catch(err => {
 		console.log(err);
 		message.error("Sistem xətası");
@@ -35,7 +35,7 @@ export const deleteImage = (id:number) => {
 }; 
   
 export const addProduct = (body: Object) => {
-	return axios.post(config().apiUrl + "/api/product", body, { headers: config().headers }).catch(err => {
+	return axios.post(config().apiUrl + "/products", body, { headers: config().headers }).catch(err => {
 		console.log(err);
 		message.error("Sistem xətası");
 	});

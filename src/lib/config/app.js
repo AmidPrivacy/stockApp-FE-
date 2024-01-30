@@ -7,15 +7,15 @@
 function config() {
   const appConfig = {
     development: {
-      // apiUrl: 'https://stock-api.rahmanov.info', 
-      apiUrl: 'http://localhost:8000', 
+      apiUrl: 'https://stock-api.rahmanov.info', 
+      // apiUrl: 'http://localhost:8000', 
       headers: {
         Authorization: 'Bearer ' + sessionStorage.getItem('token'), 
       },
     },
 
     production: {
-      apiUrl: 'https://backend.techbrain.az', 
+      apiUrl: 'https://stock-api.rahmanov.info',  
       headers: {
         Authorization: 'Bearer ' + sessionStorage.getItem('token'),
         'Access-Control-Allow-Origin': '*',

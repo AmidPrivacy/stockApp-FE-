@@ -14,16 +14,19 @@ const List: React.FC<{ products: any, pagination:any, setSettings: Function, han
 
 
 
+    function handleDelete(id: any): void {
+      throw new Error('Function not implemented.');
+    }
+ 
+
   return (<Table dataSource={products} rowKey={(record: any) => record.id} onChange={()=>handleTableChange()} loading={loading}
   className='product-table'  pagination={pagination} locale={{ emptyText: "Məlumat tapılmadı" }}>
 
   
   <Column title="Id" dataIndex="id" key="id" /> 
 
-  <Column title="Məhsul" 
-    render={(rec) => { 
-      return <a href={"https://backend.techbrain.az/product/"+rec.uuid} target='_blank'> {rec.name} </a>
-    }} key="name" /> 
+  <Column title="Məhsul"  dataIndex="name" key="name" /> 
+  <Column title="Barkod"  dataIndex="barcode" key="barcode" /> 
 
   
   <Column title="Şəkil" 
@@ -34,7 +37,7 @@ const List: React.FC<{ products: any, pagination:any, setSettings: Function, han
     }} key="picture" /> 
 
 
-  <Column title="Firmalar" 
+  {/* <Column title="Firmalar" 
     render={(rec) => {
       return <>
       <div key={rec.id}>
@@ -47,23 +50,20 @@ const List: React.FC<{ products: any, pagination:any, setSettings: Function, han
       <Button style={{ marginTop: "10px" }} onClick={() => {  
           setSettings((prevState:any) => ({ ...prevState,  firmVisible: true, id: rec.id })); 
         }}>Əlavə et</Button> </>
-    }} key="company" /> 
+    }} key="company" />  */}
 
   
-  <Column title="Qiymət(AZN)" dataIndex="price" key="price" />  
+  {/* <Column title="Qiymət(AZN)" dataIndex="price" key="price" />   */}
 
-  {/* <Column title="" key="Actions" width={200} render={(rec) => <>
+  <Column title="" key="Actions" width={200} render={(rec) => <>
     <Popconfirm placement="top" title="Məhsulu silmək istəyirsinizmi?" 
       onConfirm={() =>handleDelete(rec.id)} okText="Bəli" cancelText="Xeyr">
         <Button> Sil </Button>
     </Popconfirm>
-    <Popconfirm placement="top" title="Məhsulu kopyalamaq istəyirsinizmi?" 
-      onConfirm={() =>handleCopy(rec.id)} okText="Bəli" cancelText="Xeyr">
-        <Button style={{ margin: "5px 0" }}> Kopyala </Button>
-    </Popconfirm>
+   
     <Button style={{ marginLeft: "5px" }} key={rec.id} 
-      onClick={()=>setSettings((prev)=>({ ...prev, addVisible: true, id: rec.id }))}> Düzəliş et </Button>
-  </>} />  */}
+      onClick={()=>setSettings((prev:any)=>({ ...prev, addVisible: true, id: rec.id }))}> Düzəliş et </Button>
+  </>} /> 
 
 </Table> );
 }

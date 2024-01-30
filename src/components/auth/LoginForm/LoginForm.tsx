@@ -26,11 +26,9 @@ export const LoginForm: React.FC = () => {
     signIn(user).then(res=> { 
       if(res && res.data) { 
           sessionStorage.setItem("token", res.data.access_token); 
-          sessionStorage.setItem("full_name", res.data.user); 
-          sessionStorage.setItem("role", res.data.role); 
-          sessionStorage.setItem("referral_code", res.data.referral_code); 
+          sessionStorage.setItem("full_name", res.data.user.first_name+" "+res.data.user.last_name);  
            
-          window.location.assign(res.data.role===5 ? "admin/company-orders" : "/"); 
+          window.location.assign("/admin/products"); 
       } else {
         message.error("Sistem xətası")
       }
