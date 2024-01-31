@@ -1,5 +1,6 @@
 import React from 'react';
-import { Button, Tag, Table, Popconfirm } from 'antd'; 
+import { Button, Table, Popconfirm, message } from 'antd'; 
+import { deleteProduct } from '../../api/products';
    
 const { Column } = Table;   
 
@@ -7,16 +8,23 @@ const { Column } = Table;
  
 
 
-const List: React.FC<{ products: any, pagination:any, setSettings: Function, handleTableChange: Function, loading: any }> = 
-                          ({ products, setSettings, pagination, handleTableChange, loading }) => {
+const List: React.FC<{ products: any, pagination:any, setSettings: Function, handleTableChange: Function, loading: any, 
+        getProducts: Function }> = ({ products, setSettings, pagination, handleTableChange, loading, getProducts }) => {
  
   
 
 
 
-    function handleDelete(id: any): void {
-      throw new Error('Function not implemented.');
-    }
+  function handleDelete(id: any): void {
+
+    const formData = new FormData();
+    formData.append('_method', "DELETE")
+    deleteProduct(formData, id).then(_res=>{
+      message.success("Məhsul silindi");
+      getProducts();
+    })
+
+  }
  
 
   return (<Table dataSource={products} rowKey={(record: any) => record.id} onChange={()=>handleTableChange()} loading={loading}
@@ -31,9 +39,12 @@ const List: React.FC<{ products: any, pagination:any, setSettings: Function, han
   
   <Column title="Şəkil" 
     render={(rec) => {
-      return <Button onClick={() => {  
+      return <>
+        {rec.image !==null ? <img src={rec.image.original_url} alt='' style={{ width: "30px" }} /> : null}
+        <Button onClick={() => {  
           setSettings((prevState:any) => ({ ...prevState,  imgVisible: true, id: rec.id })); 
         }}>Ətraflı</Button> 
+      </>
     }} key="picture" /> 
 
 

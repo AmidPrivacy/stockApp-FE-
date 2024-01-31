@@ -15,15 +15,8 @@ const Products: React.FC = () => {
   const [pagination, setPagination] = useState({ pageSize: 10, current: 1, total: 0, });
   const [search, setSearch]=useState({
     id: "",
-    name: "", 
-    parentCategoryId: "",
-    categoryId: "",
-    price: "",
-    discount: "",
-    companyId: "",
-    menuId: "",
-    isEmptySp: "",
-    isEmptyImg: "",
+    name: "",   
+    price: "",  
   });
 
   // Component didMount - call products
@@ -72,7 +65,8 @@ const Products: React.FC = () => {
     <Row>
       {/************* Table row ***********/}
       <Col span={22} offset={1} style={{ marginTop: "10px" }}> 
-        <List products={products??[]} setSettings={setSettings} handleTableChange={handleTableChange} pagination={pagination} loading={loading} />
+        <List products={products??[]} setSettings={setSettings} handleTableChange={handleTableChange} 
+          pagination={pagination} loading={loading} getProducts={getProducts} />
       </Col>
     </Row>
 

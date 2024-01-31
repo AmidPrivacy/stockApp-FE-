@@ -46,7 +46,7 @@ const FilterByFields: React.FC<{ search: Search, setSearch: Function }> = ({ sea
           }))} />
       </Col>   
 
-      <Col span={5}>  
+      {/* <Col span={5}>  
         <Select style={btnStyle}
           value={search.companyId}
           onChange={(e: any) => setSearch((prevState:Search) => ({
@@ -58,7 +58,7 @@ const FilterByFields: React.FC<{ search: Search, setSearch: Function }> = ({ sea
             return (<Option value={res.id} key={res.id}> {res.name} </Option>);
           }) : null}
         </Select>
-      </Col> 
+      </Col>  */}
 
       <Col span={3} offset={1} className="left-margin">
         <Input style={btnStyle} placeholder="Qiymət" 

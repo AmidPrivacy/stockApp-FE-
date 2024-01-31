@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Button, Modal, Input, message, Card, UploadFile, Divider, Popconfirm } from 'antd'; 
-import { addProduct, fetchProductById } from "../../api/products";   
+import { addProduct, fetchProductById, updateProduct } from "../../api/products";   
 import { DeleteOutlined } from '@ant-design/icons'; 
 import Editor from './Editor';
 import FormData from 'form-data';
@@ -18,7 +18,7 @@ const AddProduct: React.FC<{ settings: any, setSettings: Function, getProducts: 
     barcode: "",  
   });    
   const [fileList, setFileList] = useState<UploadFile[]>([]); 
-  const [uploadedFiles, setUploaded] = useState([]);
+  const [uploadedFiles, setUploaded] = useState<any>([]);
   const [loading, setLoading] = useState(false);  
 
 
@@ -28,7 +28,7 @@ const AddProduct: React.FC<{ settings: any, setSettings: Function, getProducts: 
       if(settings.id) {
         fetchProductById(settings.id).then((res:any)=>{ 
           const data = res.data.data; 
-          
+          setUploaded(data.image !== null ? [data.image] : [])
           setSelectedObj({  
             name: data.name, 
             description: data.description,   
@@ -37,10 +37,8 @@ const AddProduct: React.FC<{ settings: any, setSettings: Function, getProducts: 
            
         })
       } 
-    } else {
-      setSelectedObj({ name: "", description: "", barcode: "" });  
-    }
-   
+    } else { setSelectedObj({ name: "", description: "", barcode: "" }) }
+    setFileList([]);
   }, [settings.id, settings.addVisible]);
 
   
@@ -51,12 +49,14 @@ const AddProduct: React.FC<{ settings: any, setSettings: Function, getProducts: 
         setLoading(true);
 
         const formData = new FormData();
-        fileList.forEach((file) => { formData.append('images[]', file) });
+        fileList.forEach((file) => { formData.append('image', file) });
         formData.append('name', selectedObj.name);
         formData.append('description', selectedObj.description);
         formData.append('barcode', selectedObj.barcode);
- 
-        addProduct(formData).then((res: any) => { 
+        if(settings.id) { formData.append('_method', "PUT") }
+        
+        (settings.id ? updateProduct(formData, settings.id) : addProduct(formData))
+        .then((res: any) => { 
           if (res.data.error == null) {
             setSettings({ addVisible: false, imgVisible: false, id: null });
             getProducts();
@@ -102,23 +102,16 @@ const AddProduct: React.FC<{ settings: any, setSettings: Function, getProducts: 
 
             <Card style={{ marginTop: "20px" }}>
 
-              <input type="file" multiple ref={ref} onChange={handleFileChange} style={{ width: "91px", marginRight: "10px" }} /> 
-              {fileList.map(file=> <b>{"["+file.name+"]  "}</b>)}
+              <input type="file" ref={ref} onChange={handleFileChange} style={{ width: "91px", marginRight: "10px" }} /> 
+              {fileList.length>0 ? <b>{fileList[0].name}</b> : null}
 
               <Divider />
 
-              <ul style={{ listStyle: "none", padding: 0, minHeight: "70px" }}>
-                {uploadedFiles.map((res:any)=>
-                  <li style={{ marginLeft: "10px", display: "inline-block" }}>
+              {uploadedFiles.length>0 ?
+                <img src={uploadedFiles[0].original_url} alt="" 
+                  style={{ width: "70px", display: "block", marginBottom: "10px", float: "left", height: "83px" }} /> : null}
 
-                    <img src={config().apiUrl+"/uploads/products/"+res.path} alt="" 
-                              style={{ width: "70px", display: "block", marginBottom: "10px", float: "left", height: "83px" }} />
-
-                    <Popconfirm placement="top" okText="Bəli" cancelText="Xeyr" title="Şəkili silmək istəyirsinizmi?" onConfirm={() =>handleDelete(res.id)}>
-                        <DeleteOutlined rev="label" style={{ cursor: "pointer", position: "absolute", marginLeft: "-15px" }} />
-                    </Popconfirm>   
-                  </li>)}
-              </ul>
+          
 
             </Card>
    
