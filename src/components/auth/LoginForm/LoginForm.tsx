@@ -1,25 +1,11 @@
-import React, { useEffect, useState } from 'react';  
+import React, { useState } from 'react';  
 import { Button, message } from 'antd';
 import { signIn } from '../../../api/sign';  
 
 export const LoginForm: React.FC = () => {  
-  const [isLoading, setLoading] = useState(false);
-  const [isActiveSubmit, setActiveSubmit] = useState(true);
+  const [isLoading, setLoading] = useState(false); 
   const [user, setUser] = useState({ email: "", password: "" })
- 
-  useEffect(()=> { 
-    setTimeout(()=>{
-      const userName:any = document.getElementById('id_mail');
-      const password:any = document.getElementById('id_password');
-
-      if(userName && userName.matches(':-internal-autofill-selected') &&
-          password && password.matches(':-internal-autofill-selected')) {
-        setActiveSubmit(false);
-      }
-        
-    }, 1000) 
-  }, [])
-
+  
 
   const onSubmit = () => { 
     setLoading(true);
@@ -38,6 +24,7 @@ export const LoginForm: React.FC = () => {
 
 
 
+
   return (
     <div className="container">
         <h1>SİSTEMƏ GİRİŞ</h1>
@@ -45,7 +32,6 @@ export const LoginForm: React.FC = () => {
             <div className="form-control">
                 <input type="text" required name="email" id='id_mail' value={user.email} 
                   onChange={(e)=>setUser( prev => ({ ...prev, email: e.target.value }) )} />
-                
                 <label>
                   <span>E</span>
                   <span>m</span>
@@ -68,8 +54,8 @@ export const LoginForm: React.FC = () => {
                   <span>d</span> 
                 </label>
             </div>
-            <Button className="btn" type='primary' loading={isLoading} disabled={isActiveSubmit || 
-              user.email.length===0 || user.password.length===0} onClick={onSubmit}>Giriş et</Button>
+            <Button className="btn" type='primary' loading={isLoading} disabled={user.email.length===0 
+                                      || user.password.length===0} onClick={onSubmit}>Giriş et</Button>
             <p className="text">Enjoy your system and be happy :)</p>
         </form>
     </div>

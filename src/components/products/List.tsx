@@ -40,7 +40,7 @@ const List: React.FC<{ products: any, pagination:any, setSettings: Function, han
   <Column title="Şəkil" 
     render={(rec) => {
       return <>
-        {rec.image !==null ? <img src={rec.image.original_url} alt='' style={{ width: "30px" }} /> : null}
+        {rec.image !==null ? <img src={rec.image.url} alt='' style={{ width: "60px", display: "block" }} /> : null}
         <Button onClick={() => {  
           setSettings((prevState:any) => ({ ...prevState,  imgVisible: true, id: rec.id })); 
         }}>Ətraflı</Button> 

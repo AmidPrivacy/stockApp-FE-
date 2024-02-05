@@ -1,10 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Button, Modal, Input, message, Card, UploadFile, Divider, Popconfirm } from 'antd'; 
-import { addProduct, fetchProductById, updateProduct } from "../../api/products";   
-import { DeleteOutlined } from '@ant-design/icons'; 
+import { Button, Modal, Input, message, Card, UploadFile, Divider } from 'antd'; 
+import { addProduct, fetchProductById, updateProduct } from "../../api/products" 
 import Editor from './Editor';
-import FormData from 'form-data';
-import config from '../../lib/config/app';
+import FormData from 'form-data'; 
 
 const AddProduct: React.FC<{ settings: any, setSettings: Function, getProducts: Function }> = 
                           ({ settings, setSettings, getProducts }) => {
@@ -48,14 +46,14 @@ const AddProduct: React.FC<{ settings: any, setSettings: Function, getProducts: 
       if (selectedObj.name.length !== 0 && selectedObj.description.length !==0) {
         setLoading(true);
 
-        const formData = new FormData();
-        fileList.forEach((file) => { formData.append('image', file) });
-        formData.append('name', selectedObj.name);
-        formData.append('description', selectedObj.description);
-        formData.append('barcode', selectedObj.barcode);
-        if(settings.id) { formData.append('_method', "PUT") }
+        const form = new FormData();
+        fileList.forEach((file) => { form.append('image', file) });
+        form.append('name', selectedObj.name);
+        form.append('description', selectedObj.description);
+        form.append('barcode', selectedObj.barcode);
+        if(settings.id) { form.append('_method', "PUT") }
         
-        (settings.id ? updateProduct(formData, settings.id) : addProduct(formData))
+        (settings.id ? updateProduct(form, settings.id) : addProduct(form))
         .then((res: any) => { 
           if (res.data.error == null) {
             setSettings({ addVisible: false, imgVisible: false, id: null });
@@ -93,26 +91,25 @@ const AddProduct: React.FC<{ settings: any, setSettings: Function, getProducts: 
           onCancel={() => { setSettings((prev:any)=>({ ...prev, addVisible: false, id: null })) }}> 
     
           <Input placeholder="Məhsul adı edin" value={selectedObj.name} 
-            onChange={(e)=>onChange(e.target.value, "name")} key="product-name" /> 
+            onChange={(e)=>onChange(e.target.value, "name")} key="product-name" />
   
-          <Editor onChange={onChange} data={selectedObj.description} /> 
+          <Editor onChange={onChange} data={selectedObj.description} />
 
           <Input placeholder="Barkod" value={selectedObj.barcode} 
-            onChange={(e)=>onChange(e.target.value, "barcode")} key="barcode" />   
+            onChange={(e)=>onChange(e.target.value, "barcode")} key="barcode" />  
 
             <Card style={{ marginTop: "20px" }}>
 
-              <input type="file" ref={ref} onChange={handleFileChange} style={{ width: "91px", marginRight: "10px" }} /> 
+              <input type="file" ref={ref} onChange={handleFileChange} style={{ width: "91px", marginRight: "10px" }} />
               {fileList.length>0 ? <b>{fileList[0].name}</b> : null}
 
               <Divider />
 
               {uploadedFiles.length>0 ?
-                <img src={uploadedFiles[0].original_url} alt="" 
+                <img src={uploadedFiles[0].url} alt="" 
                   style={{ width: "70px", display: "block", marginBottom: "10px", float: "left", height: "83px" }} /> : null}
 
-          
-
+           
             </Card>
    
         </Modal>);

@@ -50,8 +50,14 @@ const Menus: React.FC = () => {
 					</Link>
 				</Menu.Item>
  
-				<Menu.Item icon={<ContainerOutlined rev="label" />} onClick={() => changeMenu("/admin/list/companies", 0)} key='/admin/list/companies'>
-					<Link to="/admin/list/companies">
+				<Menu.Item icon={<ContainerOutlined rev="label" />} onClick={() => changeMenu("/admin/categories", 0)} key='/admin/categories'>
+					<Link to="/admin/categories">
+						Kateqoriyalar
+					</Link>
+				</Menu.Item>
+
+				<Menu.Item icon={<ContainerOutlined rev="label" />} onClick={() => changeMenu("/admin/companies", 0)} key='/admin/companies'>
+					<Link to="/admin/companies">
 						Firmalar
 					</Link>
 				</Menu.Item> 
