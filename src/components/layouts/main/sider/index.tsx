@@ -1,5 +1,5 @@
 /* eslint-disable no-restricted-globals */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu } from 'antd';
 import { ContainerOutlined } from '@ant-design/icons'; 
@@ -10,6 +10,7 @@ const Menus: React.FC = () => {
  
 	const [activeMenu, setActiveMenu] = useState("/admin/products");
  
+	useEffect(()=> setActiveMenu(window.location.pathname), [])
  
 	function changeMenu(path: string, id: number) {
 		let subPath = (id === 0) ? "" : id;

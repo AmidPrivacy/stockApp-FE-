@@ -21,26 +21,8 @@ export const fetchCategoryById = (id: number) => {
 	});
 };
 
-export const fetchSubCategories = () => {
-	return axios.get(config().apiUrl + "/api/sub-categories", { headers: config().headers }).catch(err => {
-		console.log(err);
-		message.error("Sistem xətası");
-	});
-};
-
-export const fetchSubCategoriesByParentId = (id:string) => {
-	return axios.get(config().apiUrl + "/api/sub-categories/"+id, { headers: config().headers }).catch(err => {
-		console.log(err);
-		message.error("Sistem xətası");
-	});
-};
-
-export const fetchValuesByCategoryId = (id:string) => {
-	return axios.get(config().apiUrl + "/api/values/category/"+id, { headers: config().headers }).catch(err => {
-		console.log(err);
-		message.error("Sistem xətası");
-	});
-};
+ 
+ 
   
 export const addNewCategory = (body: Object) => {
 	const path = "/categories";
@@ -50,9 +32,16 @@ export const addNewCategory = (body: Object) => {
 	});
 };
 
-export const deleteCategory = (body: Object, parentId: number | null) => {
-	const path = parentId ? "/api/subcategory-status" : "/api/category-status"
-	return axios.put(config().apiUrl + path, body, { headers: config().headers }).catch(err => {
+
+export const updateCategory = (body: Object, id: number) => { 
+	return axios.post(config().apiUrl + "/categories/"+id, body, { headers: config().headers }).catch(err => {
+		console.log(err);
+		message.error("Sistem xətası");
+	});
+};
+
+export const deleteCategory = (body: Object, id: number | null) => { 
+	return axios.post(config().apiUrl + "/categories/"+id, body, { headers: config().headers }).catch(err => {
 		console.log(err);
 		message.error("Sistem xətası");
 	});

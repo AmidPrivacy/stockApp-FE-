@@ -61,16 +61,23 @@ export const fetchSellerById = (id:any) => {
 	});
 };
 
-export const addNewSeller = (body: any) => {
-	return axios.post(config().apiUrl + "/sellers", body, { headers: config().headers }).catch(err => {
+export const addNewSeller = (body: any, id: number | null) => {
+	return axios.post(config().apiUrl + (id ? "/sellers/"+id : "/sellers"), body, { headers: config().headers }).catch(err => {
 		console.log(err);
 		message.error("Sistem xətası")
 	});
 };
 
-export const deleteUser = (body: Object) => {
-	return axios.put(config().apiUrl + "/user-status", body, { headers: config().headers }).catch(err => {
+export const deleteUser = (body: Object, id: number) => {
+	return axios.post(config().apiUrl + "/users/"+id, body, { headers: config().headers }).catch(err => {
 		console.log(err);
 		message.error("Sistem xətası");
 	});
 };  
+
+export const deleteSeller = (body: Object, id: number) => {
+	return axios.post(config().apiUrl + "/sellers/"+id, body, { headers: config().headers }).catch(err => {
+		console.log(err);
+		message.error("Sistem xətası");
+	});
+}; 

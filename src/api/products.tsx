@@ -35,23 +35,24 @@ export const deleteImage = (id:number) => {
 }; 
   
 export const addProduct = (body: Object) => {
-	return axios.post(config().apiUrl + "/products", body, { headers: config().headers }).catch(err => {
+	return axios.post(config().apiUrl + "/products", body, { headers: { ...config().headers, 'Content-Type': 'multipart/form-data'} }).catch(err => {
 		console.log(err);
 		message.error("Sistem xətası");
 	});
 };
 
 export const updateProduct = (body: Object, id: number) => {
-	return axios.post(config().apiUrl + "/products/"+id, body, { headers: config().headers }).catch(err => {
+	return axios.post(config().apiUrl + "/products/"+id, body, { headers: { ...config().headers, 'Content-Type': 'multipart/form-data'} }).catch(err => {
 		console.log(err);
 		message.error("Sistem xətası");
 	});
 };
  
 
-export const AddNewImage = (body: Object) => {
-	return axios.post(config().apiUrl + "/api/product-image", body, { headers: { 
+export const AddOrDeleteImage = (body: Object, id: number) => {
+	return axios.post(config().apiUrl + `/products/${id}/upload-media`, body, { headers: { 
 		Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+		'Content-Type': 'multipart/form-data',
 		'Access-Control-Allow-Origin': '*', 
 	 } }).catch(err => {
 		console.log(err);

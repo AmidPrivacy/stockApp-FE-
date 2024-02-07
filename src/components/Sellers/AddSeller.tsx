@@ -30,7 +30,10 @@ const AddSeller: React.FC<{ getUsers: Function, visible: boolean, setVisible: Fu
         form.append('email', selectedUser.email);
         form.append('phone', selectedUser.phone);
         form.append('address', selectedUser.address);
-        form.append('categories[]', selectedUser.categories);
+        selectedUser.categories.forEach((category:number) => {
+          form.append('categories[]', category.toString());
+        });
+        
 
         if(selectedUser.id !==null ) { 
           form.append('_method', "PUT"); 
@@ -42,7 +45,7 @@ const AddSeller: React.FC<{ getUsers: Function, visible: boolean, setVisible: Fu
         setLoading(true);
 
 
-        addNewSeller(form).then((res: any) => {
+        addNewSeller(form, selectedUser.id).then((res: any) => {
           if (res !== undefined) {
             if (res.data.error == null) {
               setVisible(false);
@@ -98,7 +101,7 @@ const AddSeller: React.FC<{ getUsers: Function, visible: boolean, setVisible: Fu
             value={selectedUser.categories}
             onChange={(val:any)=>setSelectedUser((prevState:any) => ({ ...prevState, categories: val }))} 
           >
-            {categories.map((res:any) => <Select.Option value={res.id}>{res.name}</Select.Option>)}
+            {categories.map((res:any) => <Select.Option value={res.id} key={res.id}>{res.name}</Select.Option>)}
           </Select>
       
           <Input placeholder="Şifrə" type="password" value={selectedUser.password} key="password" onChange={(e) => {

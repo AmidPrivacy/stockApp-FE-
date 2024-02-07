@@ -1,7 +1,8 @@
 import React from 'react';
 import { Table, Button, Popconfirm, message } from 'antd';
 import { deleteUser } from '../../api/user';
- 
+import FormData from 'form-data'; 
+
 const { Column } = Table; 
  
 
@@ -10,7 +11,11 @@ const List: React.FC<{ users: any, handleTableChange: Function, pagination: any,
  
 
   function deleteUserEvent(id:number) {
-    deleteUser({ userId: id, status: 0 }).then((res: any) => { 
+
+    const formData = new FormData();
+    formData.append('_method', "DELETE")
+
+    deleteUser(formData, id).then((res: any) => { 
         if (res.data.error == null) { 
           getUsers();
         } else {

@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Button, Modal, Input, message, Card, UploadFile, Divider } from 'antd'; 
-import { addProduct, fetchProductById, updateProduct } from "../../api/products" 
+import { Button, Modal, Input, message, Card, UploadFile, Divider } from 'antd';
+import FormData from 'form-data';  
+import { addProduct, fetchProductById, updateProduct } from "../../api/products"  
 import Editor from './Editor';
-import FormData from 'form-data'; 
+
 
 const AddProduct: React.FC<{ settings: any, setSettings: Function, getProducts: Function }> = 
                           ({ settings, setSettings, getProducts }) => {
@@ -47,7 +48,8 @@ const AddProduct: React.FC<{ settings: any, setSettings: Function, getProducts: 
         setLoading(true);
 
         const form = new FormData();
-        fileList.forEach((file) => { form.append('image', file) });
+        console.log(fileList)
+        if(fileList.length>0) { form.append('image', fileList[0]) } 
         form.append('name', selectedObj.name);
         form.append('description', selectedObj.description);
         form.append('barcode', selectedObj.barcode);

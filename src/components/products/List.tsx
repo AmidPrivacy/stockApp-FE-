@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Table, Popconfirm, message } from 'antd'; 
+import { Button, Table, Popconfirm, message, Tag } from 'antd'; 
 import { deleteProduct } from '../../api/products';
    
 const { Column } = Table;   
@@ -25,6 +25,10 @@ const List: React.FC<{ products: any, pagination:any, setSettings: Function, han
     })
 
   }
+
+  function deleteRelationEvent(id: any): void {
+    throw new Error('Function not implemented.');
+  }
  
 
   return (<Table dataSource={products} rowKey={(record: any) => record.id} onChange={()=>handleTableChange()} loading={loading}
@@ -47,23 +51,24 @@ const List: React.FC<{ products: any, pagination:any, setSettings: Function, han
       </>
     }} key="picture" /> 
 
+ 
 
-  {/* <Column title="Firmalar" 
-    render={(rec) => {
-      return <>
-      <div key={rec.id}>
-        {rec.companies.map((res:any)=> <Popconfirm placement="top" 
-          title="Firmanı məhsuldan çıxarmaq istəyirsinizmi?" onConfirm={() =>console.log(res.id)} 
-          okText="Bəli" cancelText="Xeyr">
-            <Tag key={res.id}>{res.name} {res.price+"AZN"}</Tag>
-          </Popconfirm>)} 
-      </div>
-      <Button style={{ marginTop: "10px" }} onClick={() => {  
-          setSettings((prevState:any) => ({ ...prevState,  firmVisible: true, id: rec.id })); 
-        }}>Əlavə et</Button> </>
-    }} key="company" />  */}
+    <Column title="Firmalar" 
+      render={(rec) => { 
+        return <> 
+        <div key={rec.id}>
+          {rec.companies.map((res:any)=> <Popconfirm placement="top" 
+            title="Firmanı məhsuldan çıxarmaq istəyirsinizmi?" onConfirm={() =>deleteRelationEvent(res.id)} 
+            okText="Bəli" cancelText="Xeyr">
+              <Tag key={res.id}>{res.name} {res.price+"AZN"}</Tag>
+            </Popconfirm>)} 
+        </div>
+        <Button style={{ marginTop: "10px" }} onClick={() => {  
+            setSettings((prevState:any) => ({ ...prevState,  firmVisible: true, id: rec.id })); 
+          }}>Əlavə et</Button> </>
+      }} key="company" />
 
-  
+ 
   {/* <Column title="Qiymət(AZN)" dataIndex="price" key="price" />   */}
 
   <Column title="" key="Actions" width={200} render={(rec) => <>

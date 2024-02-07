@@ -1,12 +1,11 @@
 import React from 'react';
 import { Button, Table, Popconfirm, message } from 'antd'; 
 import { deleteCategory } from '../../api/categories';
-   
+import FormData from 'form-data'; 
+
 const { Column } = Table;   
 
-
  
-
 
 const List: React.FC<{ categories: any, pagination:any, setModalVisible: Function, handleTableChange: Function, 
   loading: any, setSelectedObj: Function, getCategories: Function }> = 

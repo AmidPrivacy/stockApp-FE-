@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Row, Col, Button, Breadcrumb } from 'antd';
 import { fetchSellerList, fetchSellerById } from "../api/user";
  
-import Search from '../components/Sellers/search';
+// import Search from '../components/Sellers/search';
 import List from '../components/Sellers/List';
 import AddUser from '../components/Sellers/AddSeller'; 
 
@@ -60,7 +60,7 @@ const SellersPage: React.FC = () => {
     getUsers()
   };
  
-  return (<div style={{ marginTop: "20px" }}>
+  return (<div style={{ marginTop: "30px" }}>
 
     <Row>
 
@@ -81,7 +81,7 @@ const SellersPage: React.FC = () => {
 
     
     {/************* Filter for columns ***********/}
-    <Search search={search} setSearch={setSearch} />
+    {/* <Search search={search} setSearch={setSearch} /> */}
 
 
     {/************* Add new user ***********/}

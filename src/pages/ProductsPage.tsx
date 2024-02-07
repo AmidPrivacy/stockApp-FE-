@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Row, Col, Button, Breadcrumb, message } from 'antd'; 
 import AddProduct from '../components/products/AddProduct';
-import AddCompany from '../components/products/AddCompany';
-import FilterByFields from '../components/products/FilterByFields';
+import AddCompany from '../components/products/AddCompany'; 
 import List from '../components/products/List';
 import { fetchProductList } from '../api/products';
+import AddImage from '../components/products/AddImage';
   
 
 const Products: React.FC = () => {
   
   const [products, setProducts] = useState([]);   
   const [loading, setLoading] = useState(false);
-  const [settings, setSettings] = useState({ addVisible: false, imgVisible: false, id: null, firmVisible: false, menu: false });      
+  const [settings, setSettings] = useState({ addVisible: false, imgVisible: false, id: null, firmVisible: false });      
   const [pagination, setPagination] = useState({ pageSize: 10, current: 1, total: 0, });
   const [search, setSearch]=useState({
     id: "",
@@ -26,8 +26,8 @@ const Products: React.FC = () => {
   function getProducts(page: any = pagination) {
     setLoading(true);
     fetchProductList(page, search).then((res:any)=>{ 
-      setProducts(res.data.data); 
-      // setPagination(prevState => ({ ...prevState,  total: res.data.data.totalCount }));
+      const allDatas = res.data.data.map((item:any)=> ({ ...item, companies: [] }));
+      setProducts(allDatas);  
       setLoading(false);
     }).catch((_err:any) => {
       setLoading(false);
@@ -72,8 +72,10 @@ const Products: React.FC = () => {
 
     <AddProduct settings={settings} setSettings={setSettings} getProducts={getProducts} />
    
-    {/* <AddCompany resetRow={()=>setSettings({ addVisible: false, imgVisible: false, id: null, firmVisible: false, menu: false })} 
-      fetchDatas={getProducts} settings={settings} /> */}
+    <AddImage resetRow={()=>setSettings({ addVisible: false, imgVisible: false, id: null, firmVisible: false })} 
+       settings={settings} />
+    <AddCompany resetRow={()=>setSettings({ addVisible: false, imgVisible: false, id: null, firmVisible: false })} 
+      fetchDatas={getProducts} settings={settings} />
  
   </div>);
 }
