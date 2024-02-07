@@ -34,12 +34,12 @@ const List: React.FC<{ categories: any, pagination:any, setModalVisible: Functio
 
   <Column title="Kateqoriya" dataIndex="name" key="name" />   
 
-  <Column title="Şəkil" 
+  {/* <Column title="Şəkil" 
     render={(rec) => {
       return <>
         {rec.image !==null ? <img src={rec.image.url} alt='' style={{ width: "60px", display: "block" }} /> : null} 
       </>
-    }} key="picture" /> 
+    }} key="picture" />  */}
  
   {/* Add new child and delete row - actions */}
   <Column title="" key="Actions" width={250} render={(rec) => <>

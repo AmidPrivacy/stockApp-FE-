@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'; 
 import { Button, Modal, Input, message, Select } from 'antd';
 import { addNewCategory, fetchCategoryList, fetchCategoryById } from "../../api/categories";    
- 
-let { Option } = Select;
+import FormData from 'form-data'; 
+
+const { TextArea } = Input;
  
 const AddCategory: React.FC<{ setModalVisible: Function, modalVisible: boolean, 
    setSelectedObj: Function, getCategories: Function, selectedObj: any }> = 
@@ -12,14 +13,11 @@ const AddCategory: React.FC<{ setModalVisible: Function, modalVisible: boolean,
   const [loading, setLoading] = useState(false);   
  
  
-  // When menu modal is open - call menus
-  // useEffect(() => { 
-  //   if(modalVisible.menu && menus.length===0) {
-  //     fetchMenuList(0).then((res:any)=>{
-  //       setMenus(res.data.data); 
-  //     })
-  //   }  
-  // }, [modalVisible.menu]);
+  useEffect(()=> {
+    fetchCategoryList().then((res:any)=>{
+      setCategories(res.data.data);  
+    })
+  }, []);
 
   useEffect(()=>{ 
     if(selectedObj.rowId && modalVisible) {
@@ -35,10 +33,17 @@ const AddCategory: React.FC<{ setModalVisible: Function, modalVisible: boolean,
   function createNewRow() { 
       if (selectedObj.name.length !== 0) {
         setLoading(true);
-        addNewCategory(selectedObj).then((res: any) => { 
+
+        const form = new FormData();
+
+        form.append('name', selectedObj.name);
+        form.append('description', selectedObj.description);
+        if(selectedObj.parentId){ form.append('parent_id', selectedObj.parentId) }
+
+        addNewCategory(form).then((res: any) => { 
             if (res.data.error == null) {
               setModalVisible(false);
-              setSelectedObj((prevState:any) => ({ ...prevState, rowId: null, name: "", parentId: "" }))
+              setSelectedObj((prevState:any) => ({ ...prevState, rowId: null, name: "", description: "", parentId: "" }))
               getCategories(); 
             } else {
               message.error(res.data.error);
@@ -62,12 +67,23 @@ const AddCategory: React.FC<{ setModalVisible: Function, modalVisible: boolean,
               onClick={createNewRow}>
               Yadda saxla
             </Button>,
-          ]}
-          onCancel={() => setModalVisible((prevState:any) => ({ ...prevState,  category: false, subCategory: false, menu: false }))}
-        >
-          <Input placeholder="Kateqoriya adı daxil edin" value={selectedObj.name} onChange={(e) =>  
-              setSelectedObj((prevState:any) => ({ ...prevState,  name: e.target.value }))  
-            } className="courier-offset" key="full-name" /> 
+          ]} onCancel={() => setModalVisible(false)}>
+
+          <Input placeholder="Kateqoriya adı daxil edin" value={selectedObj.name} className='inp-box' onChange={(e) =>  
+              setSelectedObj((prevState:any) => ({ ...prevState,  name: e.target.value })) } key="full-name" /> 
+
+          <TextArea rows={4} placeholder="Ətraflı məlumat(kateqoriya üçün)" className='inp-box' onChange={(e) => 
+                          setSelectedObj((prevState:any) => ({ ...prevState,  description: e.target.value })) } />
+
+          <Select 
+            style={{ width: '100%' }}
+            className='inp-box'
+            placeholder="Kateqoriya seçin"
+            value={selectedObj.category}
+            onChange={(val:any)=>setSelectedObj((prevState:any) => ({ ...prevState, category: val }))} 
+          >
+            {categories.map((res:any) => <Select.Option value={res.id}>{res.name}</Select.Option>)}
+          </Select>
       
         </Modal>);
 }

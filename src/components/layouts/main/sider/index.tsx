@@ -15,18 +15,8 @@ const Menus: React.FC = () => {
 		let subPath = (id === 0) ? "" : id;
 		setActiveMenu(path + subPath);
 	}
-
-	const prepareTreeItems = (items: any[], parent: any = undefined): any => {
-		return items?.map((i: any) => {
-			return {
-				value: parent ? parent.id + '_' + i.id : `${i.id}`,
-				label: i.name,
-				children: prepareTreeItems(i.subCategories, i)
-			}
-		});
-	}
-
   
+
 	return (
 		<div style={{ height: "calc(100vh - 70px)", background: `url(${sideImg})`, backgroundSize: "cover" }}>
 
@@ -56,8 +46,8 @@ const Menus: React.FC = () => {
 					</Link>
 				</Menu.Item>
 
-				<Menu.Item icon={<ContainerOutlined rev="label" />} onClick={() => changeMenu("/admin/companies", 0)} key='/admin/companies'>
-					<Link to="/admin/companies">
+				<Menu.Item icon={<ContainerOutlined rev="label" />} onClick={() => changeMenu("/admin/sellers", 0)} key='/admin/sellers'>
+					<Link to="/admin/sellers">
 						Firmalar
 					</Link>
 				</Menu.Item> 
