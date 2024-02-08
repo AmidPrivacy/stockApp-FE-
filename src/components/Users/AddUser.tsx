@@ -22,9 +22,15 @@ const AddUser: React.FC<{ getUsers: Function, visible: boolean, setVisible: Func
 
         if(selectedUser.id !==null ) { 
           form.append('_method', "PUT"); 
-          if(selectedUser.password !=="" ) { form.append('password', selectedUser.password) }
+          if(selectedUser.password !=="" ) { 
+            form.append('password', selectedUser.password);
+            form.append('password_confirmation', selectedUser.password); 
+          }
         } 
-        else { form.append('password', selectedUser.password) }
+        else { 
+          form.append('password', selectedUser.password);
+          form.append('password_confirmation', selectedUser.password); 
+        }
  
 
         setLoading(true);

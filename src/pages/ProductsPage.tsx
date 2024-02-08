@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Row, Col, Button, Breadcrumb, message } from 'antd'; 
 import AddProduct from '../components/products/AddProduct';
-import AddCompany from '../components/products/AddCompany'; 
+import AddCompany from '../components/products/AddSeller'; 
 import List from '../components/products/List';
 import { fetchProductList } from '../api/products';
 import AddImage from '../components/products/AddImage';

@@ -19,14 +19,7 @@ export const fetchProductById = (id:number) => {
 		message.error("Sistem xətası");
 	});
 }; 
-
-export const fetchImageList = (id:number) => {
-	return axios.get(config().apiUrl + "/api/product-images/"+id, { headers: config().headers }).catch(err => {
-		console.log(err);
-		message.error("Sistem xətası");
-	});
-}; 
-
+ 
 export const deleteImage = (id:number) => {
 	return axios.post(config().apiUrl + "/api/product-image/"+id, { headers: config().headers }).catch(err => {
 		console.log(err);
@@ -47,7 +40,27 @@ export const updateProduct = (body: Object, id: number) => {
 		message.error("Sistem xətası");
 	});
 };
- 
+
+export const attachSellerToProduct = (body: Object, id: number) => {
+	return axios.post(config().apiUrl + `/products/${id}/attach-seller`, body, { headers: config().headers }).catch(err => {
+		console.log(err);
+		message.error("Sistem xətası");
+	});
+};
+
+export const detachSellerToProduct = (body: Object, id: number) => {
+	return axios.post(config().apiUrl + `/products/${id}/detach-seller`, body, { headers: config().headers }).catch(err => {
+		console.log(err);
+		message.error("Sistem xətası");
+	});
+};
+
+export const connectSellerToProduct = (body: Object, id: number) => {
+	return axios.post(config().apiUrl + `/products/${id}/attach-seller`, body, { headers: config().headers }).catch(err => {
+		console.log(err);
+		message.error("Sistem xətası");
+	});
+};
 
 export const AddOrDeleteImage = (body: Object, id: number) => {
 	return axios.post(config().apiUrl + `/products/${id}/upload-media`, body, { headers: { 

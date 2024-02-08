@@ -47,8 +47,7 @@ const AddProduct: React.FC<{ settings: any, setSettings: Function, getProducts: 
       if (selectedObj.name.length !== 0 && selectedObj.description.length !==0) {
         setLoading(true);
 
-        const form = new FormData();
-        console.log(fileList)
+        const form = new FormData(); 
         if(fileList.length>0) { form.append('image', fileList[0]) } 
         form.append('name', selectedObj.name);
         form.append('description', selectedObj.description);

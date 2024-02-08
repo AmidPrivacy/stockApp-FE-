@@ -28,9 +28,9 @@ const List: React.FC<{ users: any, handleTableChange: Function, pagination: any,
   }
  
   return (<Table dataSource={users} rowKey={(record: any) => record.id} pagination={pagination} locale={{ emptyText: "Məlumat tapılmadı" }}>
-          <Column title="Ad soyad" key="fullName" dataIndex="name" />
-          <Column title="Şəkil" render={(rec) => { return <img src={rec.picture} alt="" /> }} key="picture" /> 
-          <Column title="Nömrə" dataIndex="number" key="number" /> 
+          {/* <Column title="Ad soyad" key="fullName" dataIndex="name" /> */}
+          <Column title="Ad soyad" render={(rec) => { return <> {rec.last_name+" "+rec.first_name} </> }} key="fullName" />
+          {/* <Column title="Şəkil" render={(rec) => { return <img src={rec.picture} alt="" /> }} key="picture" />  */}
           <Column title="E-mail" key="email" dataIndex="email" />  
           <Column title="" key="Actions" render={(rec) => <>
             <Button style={{ marginRight: "10px" }} onClick={()=>getUserById(rec.id)}> Düzəliş et </Button>

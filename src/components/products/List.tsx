@@ -1,7 +1,8 @@
 import React from 'react';
 import { Button, Table, Popconfirm, message, Tag } from 'antd'; 
-import { deleteProduct } from '../../api/products';
-   
+import { deleteProduct, detachSellerToProduct } from '../../api/products';
+import FormData from 'form-data';  
+
 const { Column } = Table;   
 
 
@@ -26,8 +27,17 @@ const List: React.FC<{ products: any, pagination:any, setSettings: Function, han
 
   }
 
-  function deleteRelationEvent(id: any): void {
-    throw new Error('Function not implemented.');
+  function deleteRelationEvent(productId: number, sellerId: number): void {
+    
+    const form = new FormData();
+    form.append('seller_id', sellerId);  
+    form.append('_method', "PUT");
+
+    detachSellerToProduct(form, productId).then(_res=>{
+      message.success("seçilən firma məhsula bağlandı");
+      getProducts(); 
+    }).catch((err:any)=>{ throw err })
+
   }
  
 
@@ -57,19 +67,19 @@ const List: React.FC<{ products: any, pagination:any, setSettings: Function, han
       render={(rec) => { 
         return <> 
         <div key={rec.id}>
-          {rec.companies.map((res:any)=> <Popconfirm placement="top" 
-            title="Firmanı məhsuldan çıxarmaq istəyirsinizmi?" onConfirm={() =>deleteRelationEvent(res.id)} 
+          {rec.sellers.map((res:any)=> <Popconfirm placement="top"  key={res.id}
+            title="Firmanı məhsuldan ayırmaq istəyirsinizmi?" 
+            onConfirm={() =>deleteRelationEvent(rec.id, res.id)} 
             okText="Bəli" cancelText="Xeyr">
-              <Tag key={res.id}>{res.name} {res.price+"AZN"}</Tag>
+              <Tag key={res.id}>{res.name} - <b>{res.price+"AZN"}</b> <br /> {res.description} </Tag>
             </Popconfirm>)} 
         </div>
         <Button style={{ marginTop: "10px" }} onClick={() => {  
             setSettings((prevState:any) => ({ ...prevState,  firmVisible: true, id: rec.id })); 
-          }}>Əlavə et</Button> </>
+          }}>Əlavə et</Button> 
+          </>
       }} key="company" />
-
  
-  {/* <Column title="Qiymət(AZN)" dataIndex="price" key="price" />   */}
 
   <Column title="" key="Actions" width={200} render={(rec) => <>
     <Popconfirm placement="top" title="Məhsulu silmək istəyirsinizmi?" 
