@@ -28,6 +28,7 @@ const Products: React.FC = () => {
     fetchProductList(page, search).then((res:any)=>{ 
       const allDatas = res.data.data.map((item:any)=> ({ ...item, companies: [] }));
       setProducts(allDatas);  
+      setPagination(prev=> ({ ...prev, total: (res.data.meta.last_page*10) }))
       setLoading(false);
     }).catch((_err:any) => {
       setLoading(false);
@@ -36,7 +37,7 @@ const Products: React.FC = () => {
   }
    
   // Pagination event
-  function handleTableChange(page: any) { 
+  function handleTableChange(page: any) {  
     setPagination(page);
     getProducts(page)
   };

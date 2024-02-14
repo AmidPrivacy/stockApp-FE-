@@ -12,7 +12,7 @@ export const fetchUserList = (search: any= { name: "", number: "", email: "",
 };
 
 export const fetcUserById = (id:any) => {
-	return axios.get(config().apiUrl + "/user/"+id, { headers: config().headers }).catch(err => {
+	return axios.get(config().apiUrl + "/users/"+id, { headers: config().headers }).catch(err => {
 		console.log(err);
 		message.error("Sistem xətası");
 	});
@@ -32,8 +32,9 @@ export const fetchSellerList = () => {
 	});
 }; 
 
-export const addNewUser = (body: any) => {
-	return axios.post(config().apiUrl + "/users", body, { headers: config().headers }).catch(err => {
+export const addNewUser = (body: any, id: number | null) => {
+	const path = id ? `/users/${id}` : "/users";
+	return axios.post(config().apiUrl + path, body, { headers: config().headers }).catch(err => {
 		console.log(err);
 		message.error("Sistem xətası")
 	});

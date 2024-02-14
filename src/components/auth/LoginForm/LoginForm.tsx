@@ -1,10 +1,10 @@
 import React, { useState } from 'react';  
-import { Button, message } from 'antd';
+import { Button, message, Flex, Radio } from 'antd'; 
 import { signIn } from '../../../api/sign';  
 
 export const LoginForm: React.FC = () => {  
   const [isLoading, setLoading] = useState(false); 
-  const [user, setUser] = useState({ email: "", password: "" })
+  const [user, setUser] = useState({ email: "", password: "", auth: "admin" })
   
 
   const onSubmit = () => { 
@@ -28,6 +28,15 @@ export const LoginForm: React.FC = () => {
   return (
     <div className="container">
         <h1>SİSTEMƏ GİRİŞ</h1>
+        <Flex vertical gap="middle" style={{ marginBottom: "55px" }}>
+          <Radio.Group value={user.auth} buttonStyle="solid" 
+            onChange={(e)=>setUser( prev => ({ ...prev, auth: e.target.value }))}
+            style={{ display: "flex", justifyContent: "center" }}>
+            <Radio.Button value="user" style={{ width: "32%" }}>İstifadəçi</Radio.Button>
+            <Radio.Button value="admin" style={{ width: "32%" }}>Admin</Radio.Button>
+            <Radio.Button value="seller" style={{ width: "32%" }}>Firma</Radio.Button> 
+          </Radio.Group>
+        </Flex>
         <form>
             <div className="form-control">
                 <input type="text" required name="email" id='id_mail' value={user.email} 

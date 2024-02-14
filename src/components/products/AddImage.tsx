@@ -70,9 +70,9 @@ const AddImage: React.FC<{ settings: any, resetRow: Function }> = ({ settings, r
   }
 
 
-  const handleFileChange = (e: any) => {
+  const handleFileChange = (e: any) => { 
     if(e.target.files.length>0)
-      setFileList([e.target.files[0]]);
+      setFileList([...e.target.files]);
   };
 
   return (<div>
@@ -89,9 +89,9 @@ const AddImage: React.FC<{ settings: any, resetRow: Function }> = ({ settings, r
       ]}
       onCancel={() => resetRow()}
     > 
-      <input type="file" ref={ref} onChange={handleFileChange} style={{ width: "91px" }} />
+      <input type="file" ref={ref} onChange={handleFileChange} multiple style={{ width: "91px" }} />
      
-      {fileList.length>0 ? <b>{fileList[0].name+fileList[0].type}</b> : null}
+      {fileList.length>0 ? fileList.map((file:any)=> <p>{file.name} </p>) : null}
 
       <Divider />
 

@@ -36,7 +36,7 @@ const AddProduct: React.FC<{ settings: any, setSettings: Function, getProducts: 
            
         })
       } 
-    } else { setSelectedObj({ name: "", description: "", barcode: "" }) }
+    } else { setSelectedObj({ name: "", description: "", barcode: "" }); setUploaded([]) }
     setFileList([]);
   }, [settings.id, settings.addVisible]);
 

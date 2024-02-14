@@ -36,7 +36,7 @@ const AddUser: React.FC<{ getUsers: Function, visible: boolean, setVisible: Func
         setLoading(true);
 
 
-        addNewUser(form).then((res: any) => {
+        addNewUser(form, selectedUser.id).then((res: any) => {
           if (res !== undefined) {
             if (res.data.error == null) {
               setVisible(false);
