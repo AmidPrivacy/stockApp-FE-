@@ -15,6 +15,7 @@ const AddProduct: React.FC<{ settings: any, setSettings: Function, getProducts: 
     name: "", 
     description: "", 
     barcode: "",  
+    groupCode: ""
   });    
   const [fileList, setFileList] = useState<UploadFile[]>([]); 
   const [uploadedFiles, setUploaded] = useState<any>([]);
@@ -31,12 +32,13 @@ const AddProduct: React.FC<{ settings: any, setSettings: Function, getProducts: 
           setSelectedObj({  
             name: data.name, 
             description: data.description,   
-            barcode: data.barcode
+            barcode: data.barcode,
+            groupCode: data.group_code??""
           });  
            
         })
       } 
-    } else { setSelectedObj({ name: "", description: "", barcode: "" }); setUploaded([]) }
+    } else { setSelectedObj({ name: "", description: "", barcode: "", groupCode: "" }); setUploaded([]) }
     setFileList([]);
   }, [settings.id, settings.addVisible]);
 
@@ -52,6 +54,7 @@ const AddProduct: React.FC<{ settings: any, setSettings: Function, getProducts: 
         form.append('name', selectedObj.name);
         form.append('description', selectedObj.description);
         form.append('barcode', selectedObj.barcode);
+        form.append('group_code', selectedObj.groupCode);
         if(settings.id) { form.append('_method', "PUT") }
         
         (settings.id ? updateProduct(form, settings.id) : addProduct(form))
@@ -75,11 +78,7 @@ const AddProduct: React.FC<{ settings: any, setSettings: Function, getProducts: 
  
   const onChange = (val:any, type: string) => setSelectedObj(prevState => ({ ...prevState,  [type]: val }));
   const handleFileChange = (e: any) => { if(e.target.files.length>0) setFileList([...e.target.files]) };
-
-     
-  function handleDelete(id: any): void {
-    throw new Error('Function not implemented.');
-  }
+ 
 
   return (<Modal title="Məhsul məlumatlarının əlavəsi" open={settings.addVisible} width={1200}
           footer={[
@@ -98,20 +97,23 @@ const AddProduct: React.FC<{ settings: any, setSettings: Function, getProducts: 
 
           <Input placeholder="Barkod" value={selectedObj.barcode} 
             onChange={(e)=>onChange(e.target.value, "barcode")} key="barcode" />  
+ 
+          <Input placeholder="Qrup kodu" value={selectedObj.groupCode} style={{ marginTop: "15px" }}
+            onChange={(e)=>onChange(e.target.value, "groupCode")} key="groupCode" />  
 
-            <Card style={{ marginTop: "20px" }}>
+          <Card style={{ marginTop: "20px" }}>
 
-              <input type="file" ref={ref} onChange={handleFileChange} style={{ width: "91px", marginRight: "10px" }} />
-              {fileList.length>0 ? <b>{fileList[0].name}</b> : null}
+            <input type="file" ref={ref} onChange={handleFileChange} style={{ width: "91px", marginRight: "10px" }} />
+            {fileList.length>0 ? <b>{fileList[0].name}</b> : null}
 
-              <Divider />
+            <Divider />
 
-              {uploadedFiles.length>0 ?
-                <img src={uploadedFiles[0].url} alt="" 
-                  style={{ width: "70px", display: "block", marginBottom: "10px", float: "left", height: "83px" }} /> : null}
+            {uploadedFiles.length>0 ?
+              <img src={uploadedFiles[0].url} alt="" 
+                style={{ width: "70px", display: "block", marginBottom: "10px", float: "left", height: "83px" }} /> : null}
 
-           
-            </Card>
+          
+          </Card>
    
         </Modal>);
 }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Row, Col, Button, Breadcrumb, message } from 'antd'; 
+import { Row, Col, Button, Breadcrumb, message, Tag } from 'antd'; 
 import AddProduct from '../components/products/AddProduct';
 import AddCompany from '../components/products/AddSeller'; 
 import List from '../components/products/List';
@@ -10,6 +10,7 @@ import AddImage from '../components/products/AddImage';
 const Products: React.FC = () => {
   
   const [products, setProducts] = useState([]);   
+  const [code, setCode] = useState("");
   const [loading, setLoading] = useState(false);
   const [settings, setSettings] = useState({ addVisible: false, imgVisible: false, id: null, firmVisible: false });      
   const [pagination, setPagination] = useState({ pageSize: 10, current: 1, total: 0, });
@@ -18,6 +19,7 @@ const Products: React.FC = () => {
     name: "",   
     price: "",  
   });
+
 
   // Component didMount - call products
   useEffect(() => { getProducts(); setPagination({ pageSize: 10, current: 1, total: 0, }) }, [search]);
@@ -41,6 +43,18 @@ const Products: React.FC = () => {
     setPagination(page);
     getProducts(page)
   };
+
+
+  function codeGenerate (xDate: Date) {
+    const newCode =  xDate.getFullYear().toString(10).substring(2)
+        + (xDate.getMonth()+1).toString(10).padStart(2,'0')
+        + xDate.getDate().toString(10).padStart(2,'0')
+        + xDate.getHours().toString(10).padStart(2,'0')
+        + xDate.getMinutes().toString(10).padStart(2,'0')  
+        + xDate.getSeconds().toString(10).padStart(2,'0')
+
+    setCode(newCode);
+  }
   
 
   return (<div style={{ marginTop: "10px" }}> 
@@ -55,9 +69,21 @@ const Products: React.FC = () => {
           <Breadcrumb.Item> Məhsullar </Breadcrumb.Item>
         </Breadcrumb>
       </Col>
-      <Col span={1} offset={14}>
+
+      <Col span={2} offset={9}>
+        {code.length>0 ? <Tag color="cyan" closable onClose={(_e) => setCode("")}>{code}</Tag> : null}
+      </Col>
+      <Col span={1} offset={1}>
         {sessionStorage.getItem("role")==="admin" ?
-        <Button type="primary" style={{ paddingRight: "15px" }} className="new-courier" 
+        <Button type="primary" style={{ paddingRight: "15px" }} 
+            onClick={()=>codeGenerate(new Date())} key="code-generate">
+            Kod generate
+        </Button> : null}
+      </Col> 
+
+      <Col span={1} offset={1}>
+        {sessionStorage.getItem("role")==="admin" ?
+        <Button type="primary" style={{ paddingRight: "15px" }}  
           onClick={() => setSettings((prev)=>({ ...prev, addVisible: true })) } key="new-price">
             +Yeni
         </Button> : null}

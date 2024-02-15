@@ -29,3 +29,17 @@ export const deleteOrder = (id: number) => {
 		message.error("Sistem xətası");
 	});
 };
+
+export const acceptOrder = (id: number) => {
+	return axios.post(config().apiUrl + `/seller/orders/${id}/accept`, {}, { headers: config().headers }).catch(err => {
+		console.log(err);
+		message.error("Sistem xətası");
+	});
+};
+
+export const rejectOrder = (id: number) => {
+	return axios.post(config().apiUrl + `/seller/orders/${id}/reject`, {}, { headers: config().headers }).catch(err => {
+		console.log(err);
+		message.error("Sistem xətası");
+	});
+};

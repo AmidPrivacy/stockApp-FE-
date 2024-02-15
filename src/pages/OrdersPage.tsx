@@ -16,8 +16,12 @@ const OrdersPage: React.FC = () => {
   
   function getOrders() {
     fetchOrderList().then((res:any)=>{  
-      if(res)
-        setOrders(res?.data?.data??[]) 
+      if(res){
+        const data = (res?.data?.data??[]).filter((item:any) =>  item.status.name !=="Cancelled" || sessionStorage.getItem("role") !=="seller" )
+
+        setOrders(data) 
+      }
+        
     }).catch((err:any)=>{
       throw err;
     })
@@ -38,9 +42,10 @@ const OrdersPage: React.FC = () => {
       {/************* Top of table ***********/}
       <Col span={7} offset={1}>
         <Breadcrumb>
+         {sessionStorage.getItem("role")==="admin" ? 
           <Breadcrumb.Item>
-            <a href="/">Ana səhifə</a>
-          </Breadcrumb.Item>
+              <a href="/">Ana səhifə</a>
+            </Breadcrumb.Item> : null}
           <Breadcrumb.Item> Sifarişlər </Breadcrumb.Item>
         </Breadcrumb>
       </Col> 
@@ -52,7 +57,7 @@ const OrdersPage: React.FC = () => {
 
 
     {/************* Add new user ***********/}
-    <Row>
+    <Row style={{ width: "100%", overflow: "auto" }}>
       <Col span={22} offset={1} style={{ marginTop: "10px" }}>
 
         <List orders={orders} getOrders={getOrders} pagination={pagination} handleTableChange={handleTableChange} />

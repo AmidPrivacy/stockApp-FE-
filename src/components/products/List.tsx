@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Table, Popconfirm, message, Tag } from 'antd'; 
-import { deleteProduct, detachSellerToProduct } from '../../api/products';
+import { deleteProduct, DublicateProduct } from '../../api/products';
 import FormData from 'form-data';  
 import OrderProduct from './OrderProduct';
 
@@ -35,18 +35,20 @@ const List: React.FC<{ products: any, pagination:any, setSettings: Function, han
 
   }
 
-  // function deleteRelationEvent(productId: number, sellerId: number): void {
-    
-  //   const form = new FormData();
-  //   form.append('seller_id', sellerId);  
-  //   form.append('_method', "PUT");
-
-  //   detachSellerToProduct(form, productId).then(_res=>{
-  //     message.success("seçilən firma məhsula bağlandı");
-  //     getProducts(); 
-  //   }).catch((err:any)=>{ throw err })
-
-  // }
+  function handleCopy(id:number) {
+    DublicateProduct(id).then((res: any) => {
+      if (res !== undefined) {
+        if (res.data.error == null) { 
+          getProducts();
+          message.success("Məhsulun dublikatı yaradıldı");
+        } else {
+          message.error(res.data.error);
+        } 
+      } 
+    }).catch((_err:any) => { 
+      message.error("Sistem xətası");
+    }); 
+  }
  
 
   return (<>
@@ -85,13 +87,16 @@ const List: React.FC<{ products: any, pagination:any, setSettings: Function, han
         }} key="company" />
   
     {sessionStorage.getItem("role")==="admin" ?
-      <Column title="" key="Actions" width={200} render={(rec) => <>
+      <Column title="" key="Actions" width={300} render={(rec) => <>
         <Popconfirm placement="top" title="Məhsulu silmək istəyirsinizmi?" 
           onConfirm={() =>handleDelete(rec.id)} okText="Bəli" cancelText="Xeyr">
             <Button> Sil </Button>
         </Popconfirm>
-      
-        <Button style={{ marginLeft: "5px" }} key={rec.id} 
+        <Popconfirm placement="top" title="Məhsulu kopyalamaq istəyirsinizmi?" 
+          onConfirm={() =>handleCopy(rec.id)} okText="Bəli" cancelText="Xeyr">
+            <Button style={{ margin: "5px" }}> Kopyala </Button>
+        </Popconfirm>
+        <Button key={rec.id} 
           onClick={()=>setSettings((prev:any)=>({ ...prev, addVisible: true, id: rec.id }))}> Düzəliş et </Button>
       </>} /> : null}
 

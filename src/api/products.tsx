@@ -82,3 +82,9 @@ export const deleteProduct = (body: Object, id: number) => {
 };  
 
  
+export const DublicateProduct = (id: number) => {
+	return axios.post(config().apiUrl + `/products/${id}/dublicate`, {}, { headers: config().headers }).catch(err => {
+		console.log(err);
+		message.error("Sistem xətası")
+	});
+};  

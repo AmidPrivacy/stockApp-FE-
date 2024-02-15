@@ -33,8 +33,10 @@ const AppLayout: React.FC = (props) => {
         textAlign: "center", backgroundColor: "#fff", color: "#000",
         fontSize: "25px", fontWeight: "bold", letterSpacing: "1px"
       }}>
-        <span style={{ float: 'left', paddingLeft: '3px' }}>MENU</span>
-        ONLINE SHOP
+        {sessionStorage.getItem("role") !=="seller" ? <>
+          <span style={{ float: 'left', paddingLeft: '3px' }}>MENU</span>
+          ONLINE SHOP
+        </> : null}
 
         <Dropdown overlay={menu}>
           <a
@@ -50,14 +52,12 @@ const AppLayout: React.FC = (props) => {
 
       </Header>
       <Layout>
-        <Sider>
-          <Menus />
-        </Sider>
- 
+        {sessionStorage.getItem("role") !=="seller" ? <Sider><Menus /></Sider> : null}
         <Content><Outlet /></Content>
       </Layout> 
 
-      <Footer style={{ height: "30px", padding: 0, lineHeight: "30px", paddingLeft: "10px" }}>Footer</Footer>
+      {sessionStorage.getItem("role") !=="seller" ? 
+        <Footer style={{ height: "30px", padding: 0, lineHeight: "30px", paddingLeft: "10px" }}>Footer</Footer> : null}
     </Layout>
   );
 };
