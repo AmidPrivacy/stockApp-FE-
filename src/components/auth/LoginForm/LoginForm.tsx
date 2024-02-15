@@ -12,9 +12,10 @@ export const LoginForm: React.FC = () => {
     signIn(user).then(res=> { 
       if(res && res.data) { 
           sessionStorage.setItem("token", res.data.access_token); 
-          sessionStorage.setItem("full_name", res.data.user.first_name+" "+res.data.user.last_name);  
-           
-          window.location.assign("/admin/products"); 
+          sessionStorage.setItem("full_name", user.auth==="seller" ? res.data.user.name : 
+                                              res.data.user.first_name+" "+res.data.user.last_name);  
+          sessionStorage.setItem("role", user.auth); 
+          window.location.assign(user.auth==="seller" ? "/admin/orders" : "/admin/products"); 
       } else {
         message.error("Sistem xətası")
       }

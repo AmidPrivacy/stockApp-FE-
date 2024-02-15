@@ -62,9 +62,9 @@ const List: React.FC<{ products: any, pagination:any, setSettings: Function, han
       render={(rec) => {
         return <>
           {rec.image !==null ? <img src={rec.image.url} alt='' style={{ width: "60px", display: "block" }} /> : null}
-          <Button onClick={() => {  
+          {sessionStorage.getItem("role")==="admin" ? <Button onClick={() => {  
             setSettings((prevState:any) => ({ ...prevState,  imgVisible: true, id: rec.id })); 
-          }}>Ətraflı</Button> 
+          }}>Ətraflı</Button> : null}
         </>
       }} key="picture" /> 
 
@@ -78,22 +78,22 @@ const List: React.FC<{ products: any, pagination:any, setSettings: Function, han
                       pivotId: res.pivot.id, pivotDesc: res.pivot.description, seller: res.name }))}>
               {res.name} - <b>{res.pivot.price+"AZN"}</b></Tag>)} 
           </div>
-          <Button style={{ marginTop: "10px" }} onClick={() => {  
+          {sessionStorage.getItem("role")==="admin" ? <Button style={{ marginTop: "10px" }} onClick={() => {  
               setSettings((prevState:any) => ({ ...prevState,  firmVisible: true, id: rec.id })); 
-            }}>Əlavə et</Button> 
+            }}>Əlavə et</Button> : null}
             </>
         }} key="company" />
   
-
-    <Column title="" key="Actions" width={200} render={(rec) => <>
-      <Popconfirm placement="top" title="Məhsulu silmək istəyirsinizmi?" 
-        onConfirm={() =>handleDelete(rec.id)} okText="Bəli" cancelText="Xeyr">
-          <Button> Sil </Button>
-      </Popconfirm>
-    
-      <Button style={{ marginLeft: "5px" }} key={rec.id} 
-        onClick={()=>setSettings((prev:any)=>({ ...prev, addVisible: true, id: rec.id }))}> Düzəliş et </Button>
-    </>} /> 
+    {sessionStorage.getItem("role")==="admin" ?
+      <Column title="" key="Actions" width={200} render={(rec) => <>
+        <Popconfirm placement="top" title="Məhsulu silmək istəyirsinizmi?" 
+          onConfirm={() =>handleDelete(rec.id)} okText="Bəli" cancelText="Xeyr">
+            <Button> Sil </Button>
+        </Popconfirm>
+      
+        <Button style={{ marginLeft: "5px" }} key={rec.id} 
+          onClick={()=>setSettings((prev:any)=>({ ...prev, addVisible: true, id: rec.id }))}> Düzəliş et </Button>
+      </>} /> : null}
 
   </Table> 
   <OrderProduct order={order} setOrder={setOrder} />

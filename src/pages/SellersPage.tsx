@@ -29,7 +29,8 @@ const SellersPage: React.FC = () => {
   
   function getUsers() {
     fetchSellerList().then((res:any)=>{  
-      setUsers(res?.data?.data??[]) 
+      if(res)
+        setUsers(res?.data?.data??[]) 
     }).catch((err:any)=>{
       throw err;
     })

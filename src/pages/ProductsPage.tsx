@@ -56,11 +56,12 @@ const Products: React.FC = () => {
         </Breadcrumb>
       </Col>
       <Col span={1} offset={14}>
+        {sessionStorage.getItem("role")==="admin" ?
         <Button type="primary" style={{ paddingRight: "15px" }} className="new-courier" 
           onClick={() => setSettings((prev)=>({ ...prev, addVisible: true })) } key="new-price">
             +Yeni
-        </Button>
-      </Col>
+        </Button> : null}
+      </Col> 
     </Row>
     {/* <FilterByFields search={search} setSearch={setSearch} /> */}
     <Row>
@@ -71,12 +72,14 @@ const Products: React.FC = () => {
       </Col>
     </Row>
 
-    <AddProduct settings={settings} setSettings={setSettings} getProducts={getProducts} />
+    {sessionStorage.getItem("role")==="admin" ?
+      <AddProduct settings={settings} setSettings={setSettings} getProducts={getProducts} /> :null}
    
     <AddImage resetRow={()=>setSettings({ addVisible: false, imgVisible: false, id: null, firmVisible: false })} 
        settings={settings} />
-    <AddCompany resetRow={()=>setSettings({ addVisible: false, imgVisible: false, id: null, firmVisible: false })} 
-      fetchDatas={getProducts} settings={settings} />
+    {sessionStorage.getItem("role")==="admin" ?
+      <AddCompany resetRow={()=>setSettings({ addVisible: false, imgVisible: false, id: null, firmVisible: false })} 
+        fetchDatas={getProducts} settings={settings} /> : null}
  
   </div>);
 }

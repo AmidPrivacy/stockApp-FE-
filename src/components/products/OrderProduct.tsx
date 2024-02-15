@@ -59,7 +59,7 @@ const OrderProduct: React.FC<{ order: any, setOrder: Function }> = ({ order, set
 
           <Card title={`Firma: ${order.seller}`} style={{ margin: "15px 0" }}>
             <Card.Grid style={{ width: '25%', textAlign: 'center' }}>{order.pivotPrice}AZN</Card.Grid> 
-            <Card.Grid style={{ width: '75%' }}>{order.pivotDesc}</Card.Grid>  
+            <Card.Grid style={{ width: '75%' }}>{order.description}</Card.Grid>  
           </Card>
     
           <Input placeholder="Məhsul sayı" value={order.count} 
