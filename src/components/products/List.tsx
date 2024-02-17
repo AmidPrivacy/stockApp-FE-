@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Table, Popconfirm, message, Tag } from 'antd'; 
+import { EditOutlined  } from '@ant-design/icons'; 
 import { deleteProduct, DublicateProduct } from '../../api/products';
 import FormData from 'form-data';  
 import OrderProduct from './OrderProduct';
@@ -37,13 +38,9 @@ const List: React.FC<{ products: any, pagination:any, setSettings: Function, han
 
   function handleCopy(id:number) {
     DublicateProduct(id).then((res: any) => {
-      if (res !== undefined) {
-        if (res.data.error == null) { 
-          getProducts();
-          message.success("Məhsulun dublikatı yaradıldı");
-        } else {
-          message.error(res.data.error);
-        } 
+      if (res !== undefined) { 
+        getProducts(); 
+        message.success("Məhsulun dublikatı yaradıldı"); 
       } 
     }).catch((_err:any) => { 
       message.error("Sistem xətası");
@@ -75,10 +72,11 @@ const List: React.FC<{ products: any, pagination:any, setSettings: Function, han
           return <> 
           <div key={rec.id}>
             {rec.sellers.map((res:any) => 
-            <Tag key={res.id} onClick={() =>
+            <><Tag key={res.id} onClick={() =>
               setOrder((prevState:any) => ({ ...prevState,  isModalVisible: true, pivotPrice: res.pivot.price,
                       pivotId: res.pivot.id, pivotDesc: res.pivot.description, seller: res.name }))}>
-              {res.name} - <b>{res.pivot.price+"AZN"}</b></Tag>)} 
+              {res.name} - <b>{res.pivot.price+"AZN"}</b>
+              </Tag><EditOutlined style={{ cursor: "pointer" }} /></>)} 
           </div>
           {sessionStorage.getItem("role")==="admin" ? <Button style={{ marginTop: "10px" }} onClick={() => {  
               setSettings((prevState:any) => ({ ...prevState,  firmVisible: true, id: rec.id })); 

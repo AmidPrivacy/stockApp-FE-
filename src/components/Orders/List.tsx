@@ -44,7 +44,7 @@ const List: React.FC<{ orders: any, handleTableChange: Function, pagination: any
   }
  
   return (<>
-    <Table style={{ minWidth: "769px" }}
+    <Table style={{ minWidth: "769px", marginBottom: "20px" }}
       dataSource={orders} rowKey={(record: any) => record.id} pagination={pagination} locale={{ emptyText: "Məlumat tapılmadı" }}>
       <Column title="Təklif qiyməti" key="buyer_price" render={(rec) => <> {rec.buyer_price}AZN </>} /> 
       <Column title="Satıcı qiyməti" key="seller_price" render={(rec) => <> {rec.seller_price}AZN </>} /> 

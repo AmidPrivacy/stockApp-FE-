@@ -5,7 +5,7 @@ import { Search } from "../types/search";
 
 
 export const fetchProductList = (page:any, search: Search) => {
-	return axios.get(config().apiUrl + "/products?page=" +page.current, 
+	return axios.get(config().apiUrl + `/products?page=${page.current}&offset=${page.pageSize}`, 
 	{ headers: config().headers, params: search }).catch(err => {
 		console.log(err);
 		message.error("Sistem xətası");

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Row, Col, Breadcrumb } from 'antd';
+import { Row, Col, Breadcrumb, Input } from 'antd';
 import { fetchOrderList } from "../api/orders";
  
 // import Search from '../components/Orders/search';
@@ -49,6 +49,9 @@ const OrdersPage: React.FC = () => {
           <Breadcrumb.Item> Sifarişlər </Breadcrumb.Item>
         </Breadcrumb>
       </Col> 
+      <Col span={5} offset={10}>
+        <Input placeholder="Barkod edin" />
+      </Col>
     </Row>
 
     
@@ -58,6 +61,7 @@ const OrdersPage: React.FC = () => {
 
     {/************* Add new user ***********/}
     <Row style={{ width: "100%", overflow: "auto" }}>
+      
       <Col span={22} offset={1} style={{ marginTop: "10px" }}>
 
         <List orders={orders} getOrders={getOrders} pagination={pagination} handleTableChange={handleTableChange} />
