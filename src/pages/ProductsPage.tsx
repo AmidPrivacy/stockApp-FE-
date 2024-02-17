@@ -5,6 +5,7 @@ import AddCompany from '../components/products/AddSeller';
 import List from '../components/products/List';
 import { fetchProductList } from '../api/products';
 import AddImage from '../components/products/AddImage';
+import FilterByFields from '../components/products/FilterByFields';
   
 
 const Products: React.FC = () => {
@@ -15,8 +16,7 @@ const Products: React.FC = () => {
   const [pagination, setPagination] = useState({ pageSize: 10, current: 1, total: 0, });
   const [search, setSearch]=useState({
     id: "",
-    name: "",   
-    price: "",  
+    name: "",    
   });
 
 
@@ -69,7 +69,7 @@ const Products: React.FC = () => {
         </Button> : null}
       </Col> 
     </Row>
-    {/* <FilterByFields search={search} setSearch={setSearch} /> */}
+    <FilterByFields search={search} setSearch={setSearch} /> 
     <Row>
       {/************* Table row ***********/}
       <Col span={22} offset={1} style={{ marginTop: "10px" }}> 
