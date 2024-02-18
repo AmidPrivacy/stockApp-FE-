@@ -9,6 +9,7 @@ const Categories = React.lazy(() => import('../../pages/CategoriesPage'));
 const UsersPage = React.lazy(() => import('../../pages/UsersPage')); 
 const SellersPage = React.lazy(() => import('../../pages/SellersPage')); 
 const OrdersPage = React.lazy(() => import('../../pages/OrdersPage')); 
+const StockPage = React.lazy(() => import('../../pages/StockPage')); 
      
 
 export const AppRouter: React.FC = () => {
@@ -23,6 +24,7 @@ export const AppRouter: React.FC = () => {
             <Route path="users" element={<UsersPage />} />
             <Route path="sellers" element={<SellersPage />} />
             <Route path="orders" element={<OrdersPage />} />
+            <Route path="stock" element={<StockPage />} />
           </Route>
           <Route path="/" element={sessionStorage.getItem("token") ===null ? null : <Navigate  to="/admin/products" />}>
             <Route path="/" element={<LoginPage />} /> 

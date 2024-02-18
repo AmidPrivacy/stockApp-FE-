@@ -3,10 +3,10 @@ import { Row, Col, Breadcrumb, Input } from 'antd';
 import { fetchOrderList } from "../api/orders";
  
 // import Search from '../components/Orders/search';
-import List from '../components/Orders/List'; 
+import List from '../components/Stock/List'; 
 
   
-const OrdersPage: React.FC = () => {
+const StockPage: React.FC = () => {
 
   const [search, setSearch] = useState({ name: "", number: "", email: "" }); 
   const [orders, setOrders] = useState([]);  
@@ -46,11 +46,11 @@ const OrdersPage: React.FC = () => {
           <Breadcrumb.Item>
               <a href="/">Ana səhifə</a>
             </Breadcrumb.Item> : null}
-          <Breadcrumb.Item> Sifarişlər </Breadcrumb.Item>
+          <Breadcrumb.Item> Stok məhsullar </Breadcrumb.Item>
         </Breadcrumb>
       </Col> 
       <Col span={5} offset={10}>
-        {/* <Input placeholder="Barkod edin" /> */}
+        <Input placeholder="Barkod edin" />
       </Col>
     </Row>
 
@@ -72,4 +72,4 @@ const OrdersPage: React.FC = () => {
   </div>);
 }
 
-export default OrdersPage;
+export default StockPage;

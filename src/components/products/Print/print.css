@@ -25,7 +25,7 @@ body,
   font-size: 1.1rem;
   font-weight: bold;
   width: 345px;
-  margin: 100px auto 0;
+  margin: 30px auto 20px;
   min-height: 135px;
   padding: 10px 0.5rem;
   box-shadow: 0px 0px 14px 4px #ccc;
@@ -48,24 +48,18 @@ body,
   width: 70px !important;
 }
  
-.Ticket .ticket-body h2 {
-  float: left;
+.Ticket .ticket-body h2 { 
   margin-top: 7px;
-  font-size: 28px;
-  width: 63%;
+  font-size: 28px; 
   text-align: left;
   padding-left: 2%;
-}
- 
-.Ticket .ticket-body .phone-number {
-  font-size: 17px;
-  width: 100%;
-  clear: both;
-  text-align: left;
-  padding-left: 5px;
-  padding-top: 3px;
   margin-bottom: 0;
 }
+  
+.Ticket .ticket-body .product-price { 
+  margin: 15px 0;
+}
+
  
 #window-print {
   float: right;
@@ -95,49 +89,15 @@ body,
     max-width: 58% !important;
   }
 }
-.ant-card-body ul,
-.ant-modal-body ul {
-  list-style: none;
-  padding: 0;
-}
-
-.ant-card-body ul li,
-.ant-modal-body ul li {
-  text-align: left;
-  font-size: 22px;
-  border-bottom: solid 1px #ccc;
-  padding-left: 4px;
-  padding-top: 7px;
-  padding-bottom: 7px;
-  cursor: pointer;
-}
-
-.ant-modal-body ul li {
-  width: 47%;
-  padding-right: 7px;
-  margin-right: 3%;
-  float: left;
-}
-
-.ant-card-body ul li:hover,
-.ant-modal-body ul li:hover {
-  background-color: #f2f1f1;
-}
-
-.ant-card-body ul li b,
-.ant-modal-body ul li b {
-  float: right;
-  padding-right: 5px;
-}
+ 
+ 
+ 
 
 .Ticket .ticket-footer h3 {
   line-height: 30px;
   font-size: 19px;
 }
-
-.vvaq-table td:last-child {
-  width: 27%;
-}
+ 
 
 .my-list-items {
   width: 36%;

@@ -12,7 +12,12 @@ const Products: React.FC = () => {
   
   const [products, setProducts] = useState([]);    
   const [loading, setLoading] = useState(false);
-  const [settings, setSettings] = useState({ addVisible: false, imgVisible: false, id: null, firmVisible: false });      
+  const [settings, setSettings] = useState({ addVisible: false, imgVisible: false, id: null, firmVisible: false });  
+  const [pivot, setPivot] = useState({
+    id: null, 
+    price: 0,
+    description: "" 
+  })    
   const [pagination, setPagination] = useState({ pageSize: 10, current: 1, total: 0, });
   const [search, setSearch]=useState({
     id: "",
@@ -74,7 +79,7 @@ const Products: React.FC = () => {
       {/************* Table row ***********/}
       <Col span={22} offset={1} style={{ marginTop: "10px" }}> 
         <List products={products??[]} setSettings={setSettings} handleTableChange={handleTableChange} 
-          pagination={pagination} loading={loading} getProducts={getProducts} />
+          pagination={pagination} loading={loading} getProducts={getProducts} setPivot={setPivot} />
       </Col>
     </Row>
 
@@ -85,7 +90,7 @@ const Products: React.FC = () => {
        settings={settings} />
     {sessionStorage.getItem("role")==="admin" ?
       <AddCompany resetRow={()=>setSettings({ addVisible: false, imgVisible: false, id: null, firmVisible: false })} 
-        fetchDatas={getProducts} settings={settings} /> : null}
+        fetchDatas={getProducts} settings={settings} pivot={pivot} setPivot={setPivot} /> : null}
  
   </div>);
 }

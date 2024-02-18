@@ -7,16 +7,11 @@ import FormData from 'form-data';
 let { Option } = Select;
 const { TextArea } = Input;
 
-const AddSeller: React.FC<{ settings: any, resetRow: Function, 
-  fetchDatas: Function }> = ({ settings, resetRow, fetchDatas }) => {
+const AddSeller: React.FC<{ settings: any, resetRow: Function,  pivot:any, setPivot:Function,
+                      fetchDatas: Function }> = ({ settings, resetRow, fetchDatas, pivot, setPivot }) => {
  
   const [loading, setLoading] = useState(false);
-  const [sellers, setSellers] = useState([]);
-  const [selectedRow, setSelectedRow] = useState({
-    id: null, 
-    value: 0,
-    description: "" 
-  });
+  const [sellers, setSellers] = useState([]); 
 
 
   useEffect(()=>{
@@ -31,14 +26,14 @@ const AddSeller: React.FC<{ settings: any, resetRow: Function,
   function connectSeller() { 
 
     const form = new FormData();
-    form.append('seller_id', selectedRow.id??""); 
-    form.append('price', selectedRow.value.toString());
-    form.append('description', selectedRow.description);
+    form.append('seller_id', pivot.id??""); 
+    form.append('price', pivot.price.toString());
+    form.append('description', pivot.description);
     form.append('_method', "PUT");
 
     attachSellerToProduct(form, settings.id).then(_res=>{
       message.success("seçilən firma məhsula bağlandı");
-      setSelectedRow({ id: null, value: 0, description: "" });
+      setPivot({ id: null, price: 0, description: "" });
       fetchDatas();
     }).catch((err:any)=>{ throw err })
   }
@@ -48,19 +43,19 @@ const AddSeller: React.FC<{ settings: any, resetRow: Function,
       title="Firma əlavə edin"
       footer={[
         <Button key="back" onClick={() => { 
-          setSelectedRow({ id: null, value: 0, description: "" });  resetRow()
+          setPivot({ id: null, price: 0, description: "" });  resetRow()
         }}>
           Ləğv et
         </Button>,
         <Button key="submit" type="primary" loading={loading} onClick={connectSeller}
-          disabled={selectedRow.id ===null || selectedRow.value===0}>
+          disabled={pivot.id ===null || pivot.price===0}>
           Yadda saxla
         </Button>,
       ]}
-      onCancel={() => { setSelectedRow({ id: null, value: 0, description: "" });  resetRow() }}
+      onCancel={() => { setPivot({ id: null, price: 0, description: "" });  resetRow() }}
     >
-      <Select style={{ width: "100%" }} value={selectedRow.id} className='inp-box'
-        onChange={(e: any) => setSelectedRow(prevState => ({ ...prevState,  id: e }))}  
+      <Select style={{ width: "100%" }} value={pivot.id} className='inp-box'
+        onChange={(e: any) => setPivot((prevState:any) => ({ ...prevState,  id: e }))}  
         filterOption={(input, option: any) =>option.children[1].toLowerCase().indexOf(input.toLowerCase()) >= 0}>
         <Option value={null} key="0"> Firma seçin </Option>
         {sellers.length > 0 ? sellers.map((res: any) => {
@@ -68,11 +63,11 @@ const AddSeller: React.FC<{ settings: any, resetRow: Function,
         }) : null}
       </Select> 
  
-      <InputNumber addonAfter="AZN" value={selectedRow.value} className='inp-box'
-        onChange={(e:any)=> setSelectedRow(prevState => ({ ...prevState,  value: e }))}  />
+      <InputNumber addonAfter="AZN" value={pivot.price} className='inp-box'
+        onChange={(e:any)=> setPivot((prevState:any) => ({ ...prevState,  price: e }))}  />
 
-      <TextArea rows={4} placeholder="Qeyd əlavə edin" value={selectedRow.description} className='inp-box'
-        onChange={(e:any)=> setSelectedRow(prevState => ({ ...prevState,  description: e.target.value }))} />
+      <TextArea rows={4} placeholder="Qeyd əlavə edin" value={pivot.description} className='inp-box'
+        onChange={(e:any)=> setPivot((prevState:any) => ({ ...prevState,  description: e.target.value }))} />
     </Modal>
   </div>);
 }

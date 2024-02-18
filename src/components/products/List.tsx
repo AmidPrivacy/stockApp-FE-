@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
 import { Button, Table, Popconfirm, message, Tag } from 'antd'; 
-import { EditOutlined  } from '@ant-design/icons'; 
+import { EditOutlined, PrinterOutlined } from '@ant-design/icons'; 
 import { deleteProduct, DublicateProduct } from '../../api/products';
 import FormData from 'form-data';  
 import OrderProduct from './OrderProduct';
+import PrintProduct from './Print';
 
 const { Column } = Table;   
  
 
 
-const List: React.FC<{ products: any, pagination:any, setSettings: Function, handleTableChange: Function, loading: any, 
-        getProducts: Function }> = ({ products, setSettings, pagination, handleTableChange, loading, getProducts }) => {
+const List: React.FC<{ products: any, pagination:any, setSettings: Function, handleTableChange: Function, loading: any, setPivot: Function,
+        getProducts: Function }> = ({ products, setSettings, pagination, handleTableChange, loading, getProducts, setPivot }) => {
  
   
   const [order, setOrder] = useState({ 
@@ -22,6 +23,13 @@ const List: React.FC<{ products: any, pagination:any, setSettings: Function, han
     count: "", 
     pivotDesc: "", 
     description: "" 
+  });
+
+  const [printObj, setPrintObj] = useState({
+    isModalVisible: false,
+    productName: "",
+    barcode: "",
+    price: ""
   })
 
 
@@ -72,11 +80,23 @@ const List: React.FC<{ products: any, pagination:any, setSettings: Function, han
           return <> 
           <div key={rec.id}>
             {rec.sellers.map((res:any) => 
-            <><Tag key={res.id} onClick={() =>
+            <div key={res.id}>
+              
+              <Tag key={res.id} onClick={() =>
               setOrder((prevState:any) => ({ ...prevState,  isModalVisible: true, pivotPrice: res.pivot.price,
                       pivotId: res.pivot.id, pivotDesc: res.pivot.description, seller: res.name }))}>
               {res.name} - <b>{res.pivot.price+"AZN"}</b>
-              </Tag><EditOutlined style={{ cursor: "pointer" }} /></>)} 
+              </Tag>
+
+              <EditOutlined style={{ cursor: "pointer" }} key={res.pivot.id} onClick={()=> { 
+                setSettings((prevState:any) => ({ ...prevState,  firmVisible: true, id: rec.id })); 
+                setPivot({ id: res.id, price: res.pivot.price, description: res.pivot.description })  } } />
+
+              <PrinterOutlined  style={{ cursor: "pointer", marginLeft: "13px" }} key={res.id+"a"+res.pivot.id}
+                onClick={()=>{ setPrintObj({ isModalVisible: true, productName: rec.name,
+                                barcode: res.pivot.barcode, price: res.pivot.price }) }}/> 
+            </div>
+            )} 
           </div>
           {sessionStorage.getItem("role")==="admin" ? <Button style={{ marginTop: "10px" }} onClick={() => {  
               setSettings((prevState:any) => ({ ...prevState,  firmVisible: true, id: rec.id })); 
@@ -100,6 +120,8 @@ const List: React.FC<{ products: any, pagination:any, setSettings: Function, han
 
   </Table> 
   <OrderProduct order={order} setOrder={setOrder} />
+
+  <PrintProduct data={printObj} setData={setPrintObj} />
 </>);
 }
 

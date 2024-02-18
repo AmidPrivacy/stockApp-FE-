@@ -1,38 +1,23 @@
-import { message } from 'antd';
 import React, { useEffect, useState } from 'react'; 
-import { useParams } from 'react-router-dom';
-// import QRCode from "react-qr-code";
-import { fetchProductById } from "../../../api/products";  
+import Barcode from 'react-barcode';   
  
 import './print.css';
+import { Modal } from 'antd';
 
-function PrintProduct() {
- 
-  let { id } = useParams<{ id: string }>();
+const PrintProduct: React.FC<{ data: {isModalVisible: boolean, productName: string, 
+          barcode: string, price: string}, setData: Function }> =  ({ data, setData }) => {
+   
 
-  const [productInfo, setProductInfo] = useState({
-    productName: "",
-    mobileNumber: "050 522 17 86", 
-    price: "", 
-  }); 
-
-  useEffect(() => {
-    fetchProductById(Number(id)).then((res:any) => { 
-      let data = res.data.data; 
-      setProductInfo((prevState:any) => ({ ...prevState,  productName: data.name, price: data.price }))
-    }); 
-  }, []);
-
-  return ( <div className='Ticket' id='TicketQueue'>  
-      <div className='ticket-body'>
-        <h4 className='ticket-name'>{productInfo.productName}</h4>
-        {/* <QRCode value={id??""} size={54} style={{ float: "left", width: "28%" }} /> */}
-        <h2 className='product-price'> {productInfo.price} AZN</h2>
-        <p className='phone-number'>
-          <b>Tel: </b> {productInfo.mobileNumber}
-        </p> 
+  return ( <Modal title={null} open={data.isModalVisible} footer={null} width={450} 
+          onCancel={() => { setData({ isModalVisible: false, productName: "", barcode: "", price: "" }) }}>
+      <div className='Ticket' id='TicketQueue'>  
+        <div className='ticket-body'>
+          <h2 className='ticket-name'>{data.productName}</h2>
+          <h4 className='product-price'> {data.price} AZN</h4>
+          <Barcode value={data.barcode} /> 
+        </div>
       </div>
-  </div>);
+  </Modal>);
   }
 
   export default PrintProduct;
