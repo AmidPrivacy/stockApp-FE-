@@ -1,6 +1,7 @@
 import React, { useState } from 'react';  
 import { Button, message, Flex, Radio } from 'antd'; 
 import { signIn } from '../../../api/sign';  
+import "./login.css";
 
 export const LoginForm: React.FC = () => {  
   const [isLoading, setLoading] = useState(false); 

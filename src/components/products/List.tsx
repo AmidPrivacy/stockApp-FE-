@@ -88,9 +88,10 @@ const List: React.FC<{ products: any, pagination:any, setSettings: Function, han
               {res.name} - <b>{res.pivot.price+"AZN"}</b>
               </Tag>
 
-              <EditOutlined style={{ cursor: "pointer" }} key={res.pivot.id} onClick={()=> { 
-                setSettings((prevState:any) => ({ ...prevState,  firmVisible: true, id: rec.id })); 
-                setPivot({ id: res.id, price: res.pivot.price, description: res.pivot.description })  } } />
+              {sessionStorage.getItem("role")==="admin" ? 
+                <EditOutlined style={{ cursor: "pointer" }} key={res.pivot.id} onClick={()=> { 
+                  setSettings((prevState:any) => ({ ...prevState,  firmVisible: true, id: rec.id })); 
+                  setPivot({ id: res.id, price: res.pivot.price, description: res.pivot.description })  } } /> : null}
 
               <PrinterOutlined  style={{ cursor: "pointer", marginLeft: "13px" }} key={res.id+"a"+res.pivot.id}
                 onClick={()=>{ setPrintObj({ isModalVisible: true, productName: rec.name,

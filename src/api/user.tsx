@@ -82,3 +82,18 @@ export const deleteSeller = (body: Object, id: number) => {
 		message.error("Sistem xətası");
 	});
 }; 
+
+
+export const fetchStockList = () => {
+	return axios.get(config().apiUrl + "/user/stocks", { headers: config().headers }).catch(err => {
+		console.log(err);
+		message.error("Sistem xətası"); 
+	});
+};
+
+export const addNewPrice = (body: any, id: number) => {
+	return axios.post(config().apiUrl + "/user/stocks/"+id, body, { headers: config().headers }).catch(err => {
+		console.log(err);
+		message.error("Sistem xətası")
+	});
+};

@@ -70,8 +70,8 @@ const List: React.FC<{ orders: any, handleTableChange: Function, pagination: any
         </>: <></>} />   
       <Column title="" key="Actions" render={(rec) => <>
         
-        {(rec.status.id===statuses.New && sessionStorage.getItem("role")==="seller") ||
-          (rec.status.id===statuses.Pending && sessionStorage.getItem("role")==="user") ? <>
+        {(rec.status.value===statuses.New && sessionStorage.getItem("role")==="seller") ||
+          (rec.status.value===statuses.Pending && sessionStorage.getItem("role")==="user") ? <>
 
           <Popconfirm placement="top" title="Sifarişi təsdiqləmək istəyirsinizmi?" 
             onConfirm={() =>AcceptOrderEvent(rec.id)} okText="Bəli" cancelText="Xeyr">
@@ -85,13 +85,13 @@ const List: React.FC<{ orders: any, handleTableChange: Function, pagination: any
           
           </>   : null}
 
-          {rec.status.id===statuses.New && sessionStorage.getItem("role")==="seller" ?
+          {rec.status.value===statuses.New && sessionStorage.getItem("role")==="seller" ?
             <Button style={{ margin: "10px 10px 10px 0" }} onClick={()=>{
             setOrder({ orderId: rec.id, isModalVisible: true, description: rec.description, 
                       offerPrice: rec.buyer_price, count: rec.buyer_count, price: rec.product_price })
           }}> Xüsusi təklif </Button> : null}
 
-        {rec.status.id===statuses.New && sessionStorage.getItem("role")==="user" ? 
+        {rec.status.value===statuses.New && sessionStorage.getItem("role")==="user" ? 
           <Popconfirm placement="top" title="Sifarişi silmək istəyirsinizmi?" 
             onConfirm={() =>CancelOrderEvent(rec.id)} okText="Bəli" cancelText="Xeyr">
               <Button> Sifarişi sil </Button>
