@@ -72,6 +72,13 @@ const Menus: React.FC = () => {
 							Stok
 						</Link>
 					</Menu.Item> : null}
+
+				{sessionStorage.getItem("role") !== "seller" ?
+					<Menu.Item icon={<ContainerOutlined rev="label" />} onClick={() => changeMenu("/admin/sales", 0)} key='/admin/sales'>
+						<Link to="/admin/sales">
+							Satışlar
+						</Link>
+					</Menu.Item> : null}
 			</Menu>
  
 		</div>
