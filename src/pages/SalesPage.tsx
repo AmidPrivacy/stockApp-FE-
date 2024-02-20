@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Row, Col, Breadcrumb, Button } from 'antd';
-import { fetchStockList } from "../api/user"; 
+import { fetchSaleList } from "../api/user"; 
 import List from '../components/Sales/List'; 
 import AddSale from '../components/Sales/AddSale';
  
@@ -13,9 +13,9 @@ const SalesPage: React.FC = () => {
   useEffect(() => { getSales() }, []);
   
   function getSales() {
-    fetchStockList().then((res:any)=>{  
+    fetchSaleList().then((res:any)=>{  
       if(res !==undefined){ 
-        setSales(res.data.data) 
+        // setSales(res.data.data) 
       } 
     }).catch((err:any)=>{
       throw err;

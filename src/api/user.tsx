@@ -85,14 +85,32 @@ export const deleteSeller = (body: Object, id: number) => {
 
 
 export const fetchStockList = () => {
-	return axios.get(config().apiUrl + "/user/stocks", { headers: config().headers }).catch(err => {
+	return axios.get(config().apiUrl + "/user/products", { headers: config().headers }).catch(err => {
 		console.log(err);
 		message.error("Sistem xətası"); 
 	});
 };
 
 export const addNewPrice = (body: any, id: number) => {
-	return axios.post(config().apiUrl + "/user/stocks/"+id, body, { headers: config().headers }).catch(err => {
+	return axios.post(config().apiUrl + "/user/products/"+id, body, { headers: config().headers }).catch(err => {
+		console.log(err);
+		message.error("Sistem xətası")
+	});
+};
+
+export const fetchSaleList = () => {
+	return axios.get(config().apiUrl + "/user/sales", { headers: config().headers }).catch(err => {
+		console.log(err);
+		message.error("Sistem xətası"); 
+	});
+};
+
+export const checkBarcode = (barcode: string) => {
+	return axios.get(config().apiUrl + `/user/sales/check/${barcode}`, { headers: config().headers });
+};
+
+export const addNewSale = (body: any) => {
+	return axios.post(config().apiUrl + "/user/sales", body, { headers: config().headers }).catch(err => {
 		console.log(err);
 		message.error("Sistem xətası")
 	});
