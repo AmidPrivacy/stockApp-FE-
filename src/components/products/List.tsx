@@ -4,7 +4,7 @@ import { EditOutlined, PrinterOutlined } from '@ant-design/icons';
 import { deleteProduct, DublicateProduct } from '../../api/products';
 import FormData from 'form-data';  
 import OrderProduct from './OrderProduct';
-import PrintProduct from './Print';
+import PrintBarcode from './PrintBarcode';
 
 const { Column } = Table;   
  
@@ -122,7 +122,7 @@ const List: React.FC<{ products: any, pagination:any, setSettings: Function, han
   </Table> 
   <OrderProduct order={order} setOrder={setOrder} />
 
-  <PrintProduct data={printObj} setData={setPrintObj} />
+  <PrintBarcode data={printObj} setData={setPrintObj} />
 </>);
 }
 

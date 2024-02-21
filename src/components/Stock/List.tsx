@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Table, Button, message } from 'antd'; 
+import { Table, Button, message, Tag } from 'antd'; 
 import ShowProduct from '../Orders/ShowProduct';
 import AddPrice from './AddPrice';
 
@@ -20,13 +20,20 @@ const List: React.FC<{ orders: any, handleTableChange: Function, pagination: any
  
   return (<>
     <Table style={{ minWidth: "769px", marginBottom: "20px" }} dataSource={orders}  pagination={pagination}
-                                rowKey={(record: any) => record.id} locale={{ emptyText: "Məlumat tapılmadı" }}>
+      onChange={(e)=>handleTableChange(e)} rowKey={(record: any) => record.id} locale={{ emptyText: "Məlumat tapılmadı" }}>
       
+      <Column title="Id" key="id" render={(rec) =><span>{rec.product.id}</span>} />
       <Column title="Məsul adı" key="product-name" render={(rec) => <Button onClick={()=>setterProduct(rec.product)}> {rec.product.name} </Button>} />
       <Column title="Məhsul sayı" dataIndex="count" key="count" /> 
-      <Column title="Qiymət(AZN)" key="price" render={(rec) => 
+
+      <Column title="Alış qiyməti(AZN)" key="buyer-price" render={(rec) => <Tag> {rec.orders[0].seller_price??rec.orders[0].buyer_price} </Tag>} /> 
+
+      <Column title="Satış qiyməti(AZN)" key="seller-price" render={(rec) => 
         <Button onClick={()=>setPrice({ isModalVisible: true, stockId: rec.id,
                   price: rec.price??"" })}> {rec.price??"Əlavə et"} </Button>} /> 
+
+      <Column title="Gəlir faizi" key="buyer-percentage" render={(rec) => rec.price ? 
+        <Tag> {(100-(rec.orders[0].buyer_price*100)/rec.price).toFixed(2)} </Tag> : null} /> 
 
     </Table>
 

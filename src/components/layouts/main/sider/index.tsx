@@ -66,14 +66,14 @@ const Menus: React.FC = () => {
 						</Link>
 					</Menu.Item> : null}
 
-				{sessionStorage.getItem("role") !== "seller" ?
+				{sessionStorage.getItem("role") === "user" ?
 					<Menu.Item icon={<ContainerOutlined rev="label" />} onClick={() => changeMenu("/admin/stock", 0)} key='/admin/stock'>
 						<Link to="/admin/stock">
 							Stok
 						</Link>
 					</Menu.Item> : null}
 
-				{sessionStorage.getItem("role") !== "seller" ?
+				{sessionStorage.getItem("role") === "user" ?
 					<Menu.Item icon={<ContainerOutlined rev="label" />} onClick={() => changeMenu("/admin/sales", 0)} key='/admin/sales'>
 						<Link to="/admin/sales">
 							Satışlar

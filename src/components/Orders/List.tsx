@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Table, Button, Popconfirm, message } from 'antd';
+import { Table, Button, Popconfirm, message, Tag } from 'antd';
 import { deleteOrder, acceptOrder, rejectOrder } from '../../api/orders'; 
 import ShowProduct from './ShowProduct';
 import SendOffer from './SendOffer';
@@ -58,7 +58,8 @@ const List: React.FC<{ orders: any, handleTableChange: Function, pagination: any
       dataSource={orders} rowKey={(record: any) => record.id} pagination={pagination} locale={{ emptyText: "Məlumat tapılmadı" }}>
       <Column title="Təklif qiyməti" key="buyer_price" render={(rec) => <> {rec.buyer_price}AZN </>} /> 
       <Column title="Satıcı qiyməti" key="seller_price" render={(rec) => <> {rec.product_price??0}AZN </>} /> 
-      <Column title="Məhsul sayı" dataIndex="count" key="count" /> 
+      {/* <Column title="Məhsul sayı" dataIndex="count" key="count" />  */}
+      <Column title="Məhsul sayı" key="buyer-count" render={(rec) => <Tag> {rec.seller_count??rec.buyer_count} </Tag>} /> 
       <Column title="Sifariş rəyi" key="description" render={(rec) => <div  dangerouslySetInnerHTML={{__html: rec.description}} />} />   
       {sessionStorage.getItem("role") !=="seller" ?
         <Column title="Satıcı firma" key="seller-name" render={(rec) => <> {rec.seller.name} </>} /> : null} 

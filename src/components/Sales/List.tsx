@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Table, Button, message } from 'antd'; 
+import { Table, Button, message, Tag } from 'antd'; 
 import ShowProduct from '../Orders/ShowProduct';
 
 
@@ -16,15 +16,17 @@ const List: React.FC<{ sales: any, handleTableChange: Function, pagination: any,
     setProduct({ isModalVisible: true, 
       name: obj.name, barcode: obj.barcode, description: obj.description, image: obj.image.url })
   }
- 
+
  
   return (<>
     <Table style={{ minWidth: "769px", marginBottom: "20px" }} dataSource={sales}  pagination={pagination}
-                                rowKey={(record: any) => record.id} locale={{ emptyText: "Məlumat tapılmadı" }}>
+      onChange={(e)=>handleTableChange(e)} rowKey={(record: any) => record.id} locale={{ emptyText: "Məlumat tapılmadı" }}>
       
-      <Column title="Məsul adı" key="product-name" render={(rec) => <Button onClick={()=>setterProduct(rec.product)}> {rec.product.name} </Button>} />
+      <Column title="Məsul" key="product-name" render={(rec) => <Button onClick={()=>setterProduct(rec.product)}> {rec.product.name} </Button>} />
+      <Column title="Firma" key="firm-name" render={(rec) => <Tag> {rec.seller.name} </Tag>} />
       <Column title="Məhsul sayı" dataIndex="count" key="count" /> 
       <Column title="Qiymət(AZN)" key="price" dataIndex="price" /> 
+      <Column title="Tarix" key="date" dataIndex="created_at" /> 
 
     </Table>
 

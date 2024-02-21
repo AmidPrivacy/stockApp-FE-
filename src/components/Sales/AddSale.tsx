@@ -35,6 +35,7 @@ const AddSale: React.FC<{ isVisible: boolean, setVisible: Function, getSales: Fu
             }
             setProducts([ ...products, obj ])
           }
+          setBarcode("");
         }
       }).catch(err => message.error(err.message))
   }
@@ -69,6 +70,8 @@ const AddSale: React.FC<{ isVisible: boolean, setVisible: Function, getSales: Fu
     addNewSale(form).then(res => { 
       if(res !== undefined) {
         setLoading(false);
+        sessionStorage.setItem("saleProducts", JSON.stringify(products));
+        window.open("/admin/print-sale")
         setProducts([]);
         getSales();
       }

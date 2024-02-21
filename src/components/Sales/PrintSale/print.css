@@ -1,0 +1,215 @@
+html,
+body,
+#root {
+  margin: 0;
+  color: unset;
+  font-size: unset;
+  font-family: unset;
+  font-variant: unset;
+  line-height: unset;
+  background-color: unset;
+  font-feature-settings: unset !important;
+  width: unset;
+  height: unset;
+  -webkit-font-smoothing: unset;
+  box-sizing: unset;
+  --antd-wave-shadow-color: unset;
+  --scroll-bar: unset;
+  display: unset;
+}
+
+.main-service {
+  font-size: 22px;
+  font-weight: 500;
+}
+.qr-text {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+.qr-text b {
+  float: left;
+}
+
+.branch-name b { 
+  margin-bottom: 10px;
+}
+
+.Ticket {
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: bold;
+  width: 345px;
+  margin: 100px auto 0;
+  height: 700px;
+  padding: 0 0.5rem;
+}
+
+.Ticket img {
+  margin-bottom: 1rem;
+  /* height: 7rem; */
+}
+
+.Ticket .branch-name {
+  margin-bottom: 0.8rem;
+  font-weight: 500;
+  font-family: math;
+}
+
+.Ticket .ticket-name {
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+  font-weight: 800;
+  font-size: 1.8rem;
+  text-decoration: underline;
+  margin-top: 15px;
+}
+
+.Ticket .ticket-content {
+  position: relative;
+}
+
+.Ticket .ticket-content .letter {
+  font-weight: 700;
+  line-height: 1.5;
+  font-size: 2.2rem;
+  margin-bottom: 6px;
+  margin-top: -6px;
+}
+
+.Ticket .ticket-content .service-type {
+  text-decoration: underline;
+}
+
+.Ticket .ticket-content .order {
+  position: absolute;
+  display: block;
+  padding: 0.1rem 0.4rem 0;
+  height: 2.8rem;
+  width: 2.8rem;
+  border: 1px solid #000;
+  border-radius: 50%;
+  left: 3rem;
+  top: 0.2rem;
+  font-size: 2rem;
+}
+
+.Ticket .ticket-content .line {
+  width: 70%;
+  display: block;
+  margin: 0 auto;
+  height: 1px;
+  border: none;
+  background-color: rgb(134, 134, 134);
+}
+
+.Ticket .ticket-footer {
+  font-weight: 500;
+  font-size: 1.3rem;
+  padding: 0 15%;
+}
+
+.Ticket .ticket-footer img{
+  width: 70px !important;
+}
+
+.Ticket .ticket-footer .ticket-date {
+  font-weight: bold;
+}
+
+.Ticket .ticket-footer h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0;
+  line-height: 1.2;
+}
+
+.Ticket .ticket-footer p.hsk {
+  font-size: 1.9rem;
+  font-weight: 600;
+}
+
+/* #TicketQueue,
+.ticket-footer {
+  display: none;
+} */
+
+#window-print {
+  float: right;
+  margin-top: 15px;
+}
+
+@media print {
+  * {
+    padding: 0;
+    margin: 0;
+    margin-bottom: 0.5rem;
+    line-height: 1.1;
+  }
+  /* .qr-text {
+    font-size: 16px;
+    margin-bottom: 7px; 
+  }
+  .qr-text b {
+    float: left;
+    display: block;
+  } */
+  .ant-table-wrapper,
+  #header,
+  .filter-form,
+  #window-print {
+    display: none;
+  }
+  .ant-card-body ul li {
+    font-size: 7px;
+  }
+
+  .ant-list .ant-row > div {
+    width: 33% !important;
+    max-width: 58% !important;
+  }
+}
+.ant-card-body ul,
+.ant-modal-body ul {
+  list-style: none;
+  padding: 0;
+}
+
+.ant-card-body ul li,
+.ant-modal-body ul li {
+  text-align: left;
+  font-size: 22px;
+  border-bottom: solid 1px #ccc;
+  padding-left: 4px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  cursor: pointer;
+}
+
+.ant-modal-body ul li {
+  width: 47%;
+  padding-right: 7px;
+  margin-right: 3%;
+  float: left;
+}
+
+.ant-card-body ul li:hover,
+.ant-modal-body ul li:hover {
+  background-color: #f2f1f1;
+}
+
+.ant-card-body ul li b,
+.ant-modal-body ul li b {
+  float: right;
+  padding-right: 5px;
+}
+
+.Ticket .ticket-footer h3 {
+  line-height: 30px;
+  font-size: 19px;
+}
+
+:where(.css-dev-only-do-not-override-1qhpsh8).ant-table-wrapper .ant-table.ant-table-small {
+  font-size: 10px;
+  text-align: center;
+  font-weight: 500;
+}

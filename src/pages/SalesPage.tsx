@@ -15,7 +15,7 @@ const SalesPage: React.FC = () => {
   function getSales() {
     fetchSaleList().then((res:any)=>{  
       if(res !==undefined){ 
-        // setSales(res.data.data) 
+        setSales(res.data.data) 
       } 
     }).catch((err:any)=>{
       throw err;
