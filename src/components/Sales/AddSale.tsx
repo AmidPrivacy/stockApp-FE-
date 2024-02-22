@@ -70,8 +70,10 @@ const AddSale: React.FC<{ isVisible: boolean, setVisible: Function, getSales: Fu
     addNewSale(form).then(res => { 
       if(res !== undefined) {
         setLoading(false);
+        console.log(res.data)
         sessionStorage.setItem("saleProducts", JSON.stringify(products));
-        window.open("/admin/print-sale")
+        sessionStorage.setItem("saleDate", res.data.data.created_at??"");
+        window.open("/print-sale");
         setProducts([]);
         getSales();
       }

@@ -1,19 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import { Row, Col, Breadcrumb, Input } from 'antd';
+import { Row, Col, Breadcrumb } from 'antd';
 import { fetchStockList } from "../api/user"; 
 import List from '../components/Stock/List'; 
- 
+import FilterBySeller from '../components/common/FilterBySeller';
+
 const StockPage: React.FC = () => {
  
   const [stocks, setStocks] = useState([]);  
   const [pagination, setPagination] = useState({ pageSize: 10, current: 1, total: 0 }); 
-
+  const [search, setSearch]=useState({  
+    seller: ""
+  });
+  
   useEffect(() => { getStocks() }, []);
   
-  function getStocks() {
-    fetchStockList().then((res:any)=>{  
+  function getStocks(page=pagination) {
+    fetchStockList(page, search).then((res:any)=>{  
       if(res !==undefined){ 
-        setStocks(res.data.data) 
+        setStocks(res.data.data);
+        setPagination(prev=> ({ ...prev, total: (res.data.meta.last_page*10) }));
       }
         
     }).catch((err:any)=>{
@@ -23,8 +28,8 @@ const StockPage: React.FC = () => {
 
   // Pagination event
   function handleTableChange(page: any) { 
-    setPagination(page);
-    getStocks()
+    setPagination(page); 
+    getStocks(page)
   };
  
   return (<div style={{ marginTop: "30px" }}>
@@ -41,9 +46,7 @@ const StockPage: React.FC = () => {
           <Breadcrumb.Item> Stok məhsullar </Breadcrumb.Item>
         </Breadcrumb>
       </Col> 
-      <Col span={5} offset={10}>
-        {/* <Input placeholder="Məhsul adı" /> */}
-      </Col>
+      <FilterBySeller search={search} setSearch={setSearch} /> 
     </Row>
 
     

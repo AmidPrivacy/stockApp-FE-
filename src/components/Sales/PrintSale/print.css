@@ -39,8 +39,8 @@ body,
   font-size: 1.1rem;
   font-weight: bold;
   width: 345px;
-  margin: 100px auto 0;
-  height: 700px;
+  margin: 10px auto 0;
+  min-height: 300px;
   padding: 0 0.5rem;
 }
 
@@ -52,7 +52,10 @@ body,
 .Ticket .branch-name {
   margin-bottom: 0.8rem;
   font-weight: 500;
-  font-family: math;
+  font-family: sans-serif;
+  font-size: 11px;
+  text-align: left;
+  padding-left: 8px;
 }
 
 .Ticket .ticket-name {
@@ -62,6 +65,10 @@ body,
   font-size: 1.8rem;
   text-decoration: underline;
   margin-top: 15px;
+}
+
+#TicketQueue h1 {
+  font-size: 20px;
 }
 
 .Ticket .ticket-content {
@@ -137,37 +144,7 @@ body,
   float: right;
   margin-top: 15px;
 }
-
-@media print {
-  * {
-    padding: 0;
-    margin: 0;
-    margin-bottom: 0.5rem;
-    line-height: 1.1;
-  }
-  /* .qr-text {
-    font-size: 16px;
-    margin-bottom: 7px; 
-  }
-  .qr-text b {
-    float: left;
-    display: block;
-  } */
-  .ant-table-wrapper,
-  #header,
-  .filter-form,
-  #window-print {
-    display: none;
-  }
-  .ant-card-body ul li {
-    font-size: 7px;
-  }
-
-  .ant-list .ant-row > div {
-    width: 33% !important;
-    max-width: 58% !important;
-  }
-}
+ 
 .ant-card-body ul,
 .ant-modal-body ul {
   list-style: none;
@@ -212,4 +189,43 @@ body,
   font-size: 10px;
   text-align: center;
   font-weight: 500;
+  display: block;
 }
+
+:where(.css-dev-only-do-not-override-1qhpsh8).ant-table-wrapper .ant-table-thead >tr>th, :where(.css-dev-only-do-not-override-1qhpsh8).ant-table-wrapper .ant-table-thead >tr>td {
+  background-color: #fff !important;
+  border: none !important;
+}
+
+#logo {
+  margin-bottom: 20px;
+}
+
+@media print {
+  * {
+    padding: 0;
+    margin: 0;
+    margin-bottom: 0.5rem;
+    line-height: 1.1;
+  }
+  
+  .ant-list .ant-row > div {
+    width: 33% !important;
+    max-width: 58% !important;
+  }
+  .Ticket { 
+    scale: 0.6;
+    position: relative;
+    right: 57px;
+    margin-top: 0;
+  }
+
+  .Ticket #logo {
+    margin-top: 0;
+   }
+  :where(.css-dev-only-do-not-override-1qhpsh8).ant-table-wrapper .ant-table.ant-table-small {
+    font-size: 20px;
+    font-weight: 400;
+  }
+}
+

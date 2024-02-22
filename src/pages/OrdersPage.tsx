@@ -1,24 +1,27 @@
 import React, { useState, useEffect } from 'react';
-import { Row, Col, Breadcrumb, Input } from 'antd';
+import { Row, Col, Breadcrumb } from 'antd';
 import { fetchOrderList } from "../api/orders";
  
 // import Search from '../components/Orders/search';
 import List from '../components/Orders/List'; 
+import FilterBySeller from '../components/common/FilterBySeller';
 
   
 const OrdersPage: React.FC = () => {
 
-  const [search, setSearch] = useState({ name: "", number: "", email: "" }); 
+  const [search, setSearch]=useState({  
+    seller: ""
+  });
   const [orders, setOrders] = useState([]);  
   const [pagination, setPagination] = useState({ pageSize: 10, current: 1, total: 0 }); 
 
   useEffect(() => { getOrders() }, [search]);
   
-  function getOrders() {
-    fetchOrderList().then((res:any)=>{  
+  function getOrders(page=pagination) {
+    fetchOrderList(page, search).then((res:any)=>{  
       if(res){
         const data = (res?.data?.data??[]).filter((item:any) =>  item.status.name !=="Cancelled" || sessionStorage.getItem("role") !=="seller" )
-
+        setPagination(prev=> ({ ...prev, total: (res.data.meta.last_page*10) }));
         setOrders(data) 
       }
         
@@ -26,13 +29,12 @@ const OrdersPage: React.FC = () => {
       throw err;
     })
   }
-  
- 
+   
 
   // Pagination event
   function handleTableChange(page: any) { 
-    setPagination(page);
-    getOrders()
+    setPagination(page); 
+    getOrders(page)
   };
  
   return (<div style={{ marginTop: "30px" }}>
@@ -49,9 +51,7 @@ const OrdersPage: React.FC = () => {
           <Breadcrumb.Item> Sifarişlər </Breadcrumb.Item>
         </Breadcrumb>
       </Col> 
-      <Col span={5} offset={10}>
-        {/* <Input placeholder="Barkod edin" /> */}
-      </Col>
+      <FilterBySeller search={search} setSearch={setSearch} /> 
     </Row>
 
     

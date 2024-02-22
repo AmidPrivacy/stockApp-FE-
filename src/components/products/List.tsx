@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'; 
+import { LightgalleryItem } from "react-lightgallery"; 
 import { Button, Table, Popconfirm, message, Tag } from 'antd'; 
 import { EditOutlined, PrinterOutlined } from '@ant-design/icons'; 
 import { deleteProduct, DublicateProduct } from '../../api/products';
@@ -68,7 +69,7 @@ const List: React.FC<{ products: any, pagination:any, setSettings: Function, han
     <Column title="Şəkil" 
       render={(rec) => {
         return <>
-          {rec.image !==null ? <img src={rec.image.url} alt='' style={{ width: "60px", display: "block" }} /> : null}
+          {rec.image !==null ? <LightgalleryItem src={rec.image.url}><img src={rec.image.url} alt='' style={{ width: "60px", display: "block" }} /></LightgalleryItem>  : null}
           {sessionStorage.getItem("role")==="admin" ? <Button onClick={() => {  
             setSettings((prevState:any) => ({ ...prevState,  imgVisible: true, id: rec.id })); 
           }}>Ətraflı</Button> : null}

@@ -16,14 +16,15 @@ export const offerOrder = (body: Object, id: number) => {
 		console.log(err);
 		message.error("Sistem xətası");
 	});
-};
+}; 
 
-export const fetchOrderList = (page:any=null) => {  
+export const fetchOrderList = (page:any={}, search:any = {}) => {  
 	const type = sessionStorage.getItem("role") ==="seller" ? "seller" : "user";
-	return axios.get(config().apiUrl + `/${type}/orders`, { headers: config().headers, params: page === null ? {} : {
+	page = page === null ? {} : {
 		limit: page.pageSize,
-		offset: (page.current - 1)  
-	} }).catch(err => {
+		offset: page.current
+	};
+	return axios.get(config().apiUrl + `/${type}/orders`, { headers: config().headers, params: { ...page, ...search } }).catch(err => {
 		console.log(err);
 		message.error("Sistem xətası");
 	});

@@ -84,8 +84,12 @@ export const deleteSeller = (body: Object, id: number) => {
 }; 
 
 
-export const fetchStockList = () => {
-	return axios.get(config().apiUrl + "/user/products", { headers: config().headers }).catch(err => {
+export const fetchStockList = (page:any={}, search:any = {}) => {
+	page = page === null ? {} : {
+		limit: page.pageSize,
+		offset: page.current
+	};
+	return axios.get(config().apiUrl + "/user/products", { headers: config().headers, params: { ...page, ...search } }).catch(err => {
 		console.log(err);
 		message.error("Sistem xətası"); 
 	});
@@ -98,8 +102,12 @@ export const addNewPrice = (body: any, id: number) => {
 	});
 };
 
-export const fetchSaleList = () => {
-	return axios.get(config().apiUrl + "/user/sales", { headers: config().headers }).catch(err => {
+export const fetchSaleList = (page:any={}, search:any = {}) => {
+	page = page === null ? {} : {
+		limit: page.pageSize,
+		offset: page.current
+	};
+	return axios.get(config().apiUrl + "/user/sales", { headers: config().headers, params: { ...page, ...search } }).catch(err => {
 		console.log(err);
 		message.error("Sistem xətası"); 
 	});

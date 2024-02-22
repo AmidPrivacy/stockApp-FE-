@@ -22,6 +22,7 @@ const Products: React.FC = () => {
   const [search, setSearch]=useState({
     id: "",
     name: "",    
+    seller: ""
   });
 
 

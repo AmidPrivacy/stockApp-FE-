@@ -3,19 +3,24 @@ import { Row, Col, Breadcrumb, Button } from 'antd';
 import { fetchSaleList } from "../api/user"; 
 import List from '../components/Sales/List'; 
 import AddSale from '../components/Sales/AddSale';
+import FilterBySeller from '../components/common/FilterBySeller';
  
 const SalesPage: React.FC = () => {
  
   const [sales, setSales] = useState([]);  
   const [pagination, setPagination] = useState({ pageSize: 10, current: 1, total: 0 }); 
   const [isVisible, setVisible] = useState(false);
+  const [search, setSearch]=useState({  
+    seller: ""
+  });
 
   useEffect(() => { getSales() }, []);
   
-  function getSales() {
-    fetchSaleList().then((res:any)=>{  
-      if(res !==undefined){ 
-        setSales(res.data.data) 
+  function getSales(page=pagination) {
+    fetchSaleList(page, search).then((res:any)=>{  
+      if(res !==undefined) { 
+        setSales(res.data.data);
+        setPagination(prev=> ({ ...prev, total: (res.data.meta.last_page*10) }));
       } 
     }).catch((err:any)=>{
       throw err;
@@ -25,7 +30,7 @@ const SalesPage: React.FC = () => {
   // Pagination event
   function handleTableChange(page: any) { 
     setPagination(page);
-    getSales()
+    getSales(page)
   };
  
   return (<div style={{ marginTop: "30px" }}>
@@ -42,9 +47,7 @@ const SalesPage: React.FC = () => {
           <Breadcrumb.Item> Satışlar </Breadcrumb.Item>
         </Breadcrumb>
       </Col>  
-      <Col span={1} offset={14}>
-        <Button type="primary" onClick={()=>setVisible(true)}>Satış et</Button>
-      </Col>
+      <FilterBySeller search={search} setSearch={setSearch} /> 
     </Row>
 
     

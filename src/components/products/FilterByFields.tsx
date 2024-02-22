@@ -1,13 +1,12 @@
 import React from 'react';
-import { Row, Col, Input } from 'antd';  
-import { Search } from '../../types/search';
+import { Row, Col, Input, Select } from 'antd';  
+import { Search } from '../../types/search'; 
+import FilterBySeller from '../common/FilterBySeller';
   
-const btnStyle = { width: "100%", marginTop: "15px" }; 
- 
+const btnStyle = { width: "100%", marginTop: "15px" };  
 
 const FilterByFields: React.FC<{ search: Search, setSearch: Function }> = ({ search, setSearch }) => {
  
-  
   
   return (<div>
     <Row style={{
@@ -32,8 +31,7 @@ const FilterByFields: React.FC<{ search: Search, setSearch: Function }> = ({ sea
             name: e.target.value,
           }))} />
       </Col>   
-
-  
+      <FilterBySeller search={search} setSearch={setSearch} /> 
       
     </Row>
   </div>);

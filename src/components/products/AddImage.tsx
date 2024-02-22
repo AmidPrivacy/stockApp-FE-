@@ -4,6 +4,7 @@ import { DeleteOutlined } from '@ant-design/icons';
 import FormData from 'form-data';
 import type { UploadFile } from 'antd/es/upload/interface';
 import { AddOrDeleteImage, deleteImage, fetchProductById } from "../../api/products"; 
+import { LightgalleryItem } from "react-lightgallery"; 
 import config from '../../lib/config/app';
 
 
@@ -99,8 +100,10 @@ const AddImage: React.FC<{ settings: any, resetRow: Function }> = ({ settings, r
         {allFiles.map((res:any)=>
           <li style={{ marginLeft: "10px", display: "inline-block" }}>
 
-            <img src={res.url} style={{ height: "70px", display: "block", marginBottom: "10px", float: "left" }} 
-               alt="" key={res.id} />
+            <LightgalleryItem src={res.url}>
+              <img src={res.url} style={{ height: "70px", display: "block", marginBottom: "10px", 
+                float: "left" }} alt="" key={res.id} />
+            </LightgalleryItem> 
 
             <Popconfirm placement="top" okText="Bəli" cancelText="Xeyr" title="Şəkili silmək istəyirsinizmi?" onConfirm={() =>handleDelete(res.id)}>
                 <DeleteOutlined rev="label" style={{ cursor: "pointer", position: "absolute", marginLeft: "-15px" }} />
