@@ -1,8 +1,8 @@
 import React, { useState } from 'react'; 
 import { LightgalleryItem } from "react-lightgallery"; 
 import { Button, Table, Popconfirm, message, Tag } from 'antd'; 
-import { EditOutlined, PrinterOutlined } from '@ant-design/icons'; 
-import { deleteProduct, DublicateProduct } from '../../api/products';
+import { EditOutlined, PrinterOutlined, DeleteOutlined  } from '@ant-design/icons'; 
+import { deleteProduct, detachSellerToProduct, DublicateProduct } from '../../api/products';
 import FormData from 'form-data';  
 import OrderProduct from './OrderProduct';
 import PrintBarcode from './PrintBarcode';
@@ -56,6 +56,17 @@ const List: React.FC<{ products: any, pagination:any, setSettings: Function, han
     }); 
   }
  
+  const deleteSeller =(sellerId: number, productId: number) => {
+    const form = new FormData();
+    form.append('seller_id', sellerId); 
+    form.append('_method', "PUT"); 
+    detachSellerToProduct(form, productId).then(_res=>{
+      if(_res !== undefined) {
+        message.success("Məhsul silindi");
+        getProducts();
+      }
+    })
+  }
 
   return (<>
   <Table dataSource={products} rowKey={(record: any) => record.id} onChange={(e)=>handleTableChange(e)} loading={loading}
@@ -90,9 +101,17 @@ const List: React.FC<{ products: any, pagination:any, setSettings: Function, han
               </Tag>
 
               {sessionStorage.getItem("role")==="admin" ? 
-                <EditOutlined style={{ cursor: "pointer" }} key={res.pivot.id} onClick={()=> { 
-                  setSettings((prevState:any) => ({ ...prevState,  firmVisible: true, id: rec.id })); 
-                  setPivot({ id: res.id, price: res.pivot.price, description: res.pivot.description })  } } /> : null}
+                <>
+                  <EditOutlined style={{ cursor: "pointer" }} key={res.pivot.id} onClick={()=> { 
+                    setSettings((prevState:any) => ({ ...prevState,  firmVisible: true, id: rec.id })); 
+                    setPivot({ id: res.id, price: res.pivot.price, description: res.pivot.description })  } } />
+                    <Popconfirm placement="top" title="Firmanı ayırmaq istəyirsinizmi?" 
+                        onConfirm={()=>deleteSeller(res.id, rec.id)} okText="Bəli" cancelText="Xeyr">
+                      <DeleteOutlined style={{ cursor: "pointer", marginLeft: "13px" }} />
+                    </Popconfirm>
+                </> : null}
+
+                
 
               <PrinterOutlined  style={{ cursor: "pointer", marginLeft: "13px" }} key={res.id+"a"+res.pivot.id}
                 onClick={()=>{ setPrintObj({ isModalVisible: true, productName: rec.name,

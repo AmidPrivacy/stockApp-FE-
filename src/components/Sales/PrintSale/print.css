@@ -184,8 +184,9 @@ table thead td {
 }
 
 #logo {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   filter: brightness(0.5);
+  margin-top: 0;
 }
 
 .total-price {
@@ -235,7 +236,7 @@ table thead td {
 
   .Ticket #logo {
     margin-top: 0;
-    margin-bottom: 40px;
+    /* margin-bottom: 40px; */
     width: 70mm;
     /* height: 100px; */
    }
