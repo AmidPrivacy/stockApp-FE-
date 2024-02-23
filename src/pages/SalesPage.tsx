@@ -48,6 +48,9 @@ const SalesPage: React.FC = () => {
         </Breadcrumb>
       </Col>  
       <FilterBySeller search={search} setSearch={setSearch} /> 
+      <Col span={2} offset={7}>
+        <Button type='primary' style={{ float: "right" }} onClick={()=>setVisible(true)}>Yeni satış</Button>
+      </Col>
     </Row>
 
     

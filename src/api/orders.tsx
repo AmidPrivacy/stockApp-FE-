@@ -19,10 +19,10 @@ export const offerOrder = (body: Object, id: number) => {
 }; 
 
 export const fetchOrderList = (page:any={}, search:any = {}) => {  
-	const type = sessionStorage.getItem("role") ==="seller" ? "seller" : "user";
+	const type = sessionStorage.getItem("role") ==="seller" ? "seller" : "user"; 
 	page = page === null ? {} : {
-		limit: page.pageSize,
-		offset: page.current
+		offset: page.pageSize,
+		page: page.current
 	};
 	return axios.get(config().apiUrl + `/${type}/orders`, { headers: config().headers, params: { ...page, ...search } }).catch(err => {
 		console.log(err);

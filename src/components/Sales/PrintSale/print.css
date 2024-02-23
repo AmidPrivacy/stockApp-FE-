@@ -17,19 +17,7 @@ body,
   --scroll-bar: unset;
   display: unset;
 }
-
-.main-service {
-  font-size: 22px;
-  font-weight: 500;
-}
-.qr-text {
-  font-size: 16px;
-  margin-bottom: 8px;
-}
-.qr-text b {
-  float: left;
-}
-
+ 
 .branch-name b { 
   margin-bottom: 10px;
 }
@@ -45,17 +33,21 @@ body,
 }
 
 .Ticket img {
-  margin-bottom: 1rem;
+  margin-bottom: -2px; 
   /* height: 7rem; */
+  width: 150px; 
+  margin-top: 18px;
 }
 
 .Ticket .branch-name {
-  margin-bottom: 0.8rem;
+  margin-bottom: 0;
   font-weight: 500;
   font-family: sans-serif;
   font-size: 11px;
   text-align: left;
-  padding-left: 8px;
+  /* padding-left: 8px; */
+  font-style: italic;
+  margin-top: 5px;
 }
 
 .Ticket .ticket-name {
@@ -71,21 +63,8 @@ body,
   font-size: 20px;
 }
 
-.Ticket .ticket-content {
-  position: relative;
-}
-
-.Ticket .ticket-content .letter {
-  font-weight: 700;
-  line-height: 1.5;
-  font-size: 2.2rem;
-  margin-bottom: 6px;
-  margin-top: -6px;
-}
-
-.Ticket .ticket-content .service-type {
-  text-decoration: underline;
-}
+ 
+ 
 
 .Ticket .ticket-content .order {
   position: absolute;
@@ -185,24 +164,61 @@ body,
   font-size: 19px;
 }
 
-:where(.css-dev-only-do-not-override-1qhpsh8).ant-table-wrapper .ant-table.ant-table-small {
+:where(.css-dev-only-do-not-override-1qhpsh8).ant-table-wrapper .ant-table.ant-table-small, table {
   font-size: 10px;
-  text-align: center;
+  text-align: left;
   font-weight: 500;
   display: block;
+  margin-top: 10px;
+  font-family: sans-serif ;
+}
+
+table thead td {
+  margin: 8px;
 }
 
 :where(.css-dev-only-do-not-override-1qhpsh8).ant-table-wrapper .ant-table-thead >tr>th, :where(.css-dev-only-do-not-override-1qhpsh8).ant-table-wrapper .ant-table-thead >tr>td {
   background-color: #fff !important;
   border: none !important;
+  font-weight: 700;
 }
 
 #logo {
   margin-bottom: 20px;
+  filter: brightness(0.5);
+}
+
+.total-price {
+  width: 200%;
+    height: 13px;
+}
+
+.total-price>div {
+  float: left; 
+  font-weight: 700;
+}
+
+.total-price>span {
+  margin-left: 29px;
+  position: absolute;
+}
+
+.total-price>b {
+  float: right;
+  /* margin-right: 27px; */
+}
+
+ table thead {
+  font-weight: 700;
+ }
+
+ .total-price>b {  
+  position: relative;
+  right: 3px;
 }
 
 @media print {
-  * {
+  /* * {
     padding: 0;
     margin: 0;
     margin-bottom: 0.5rem;
@@ -212,20 +228,34 @@ body,
   .ant-list .ant-row > div {
     width: 33% !important;
     max-width: 58% !important;
-  }
-  .Ticket { 
-    scale: 0.6;
-    position: relative;
-    right: 57px;
-    margin-top: 0;
+  } */
+  .Ticket {  
+    margin-left: 20px;
   }
 
   .Ticket #logo {
     margin-top: 0;
+    margin-bottom: 40px;
+    width: 70mm;
+    /* height: 100px; */
    }
-  :where(.css-dev-only-do-not-override-1qhpsh8).ant-table-wrapper .ant-table.ant-table-small {
-    font-size: 20px;
-    font-weight: 400;
+  :where(.css-dev-only-do-not-override-1qhpsh8).ant-table-wrapper .ant-table.ant-table-small, table {
+    font-size: 18px;
+    font-weight: 500;
   }
+
+
+  .total-price>b {  
+    margin-right: -3px !important;
+    right: 0;
+  }
+
+  .Ticket .branch-name { 
+    font-size: 15px;
+  }
+}
+
+:where(.css-dev-only-do-not-override-1qhpsh8).ant-table-wrapper .ant-table.ant-table-small .ant-table-title, :where(.css-dev-only-do-not-override-1qhpsh8).ant-table-wrapper .ant-table.ant-table-small .ant-table-footer, :where(.css-dev-only-do-not-override-1qhpsh8).ant-table-wrapper .ant-table.ant-table-small .ant-table-cell, :where(.css-dev-only-do-not-override-1qhpsh8).ant-table-wrapper .ant-table.ant-table-small .ant-table-thead>tr>th, :where(.css-dev-only-do-not-override-1qhpsh8).ant-table-wrapper .ant-table.ant-table-small .ant-table-tbody>tr>th, :where(.css-dev-only-do-not-override-1qhpsh8).ant-table-wrapper .ant-table.ant-table-small .ant-table-tbody>tr>td, :where(.css-dev-only-do-not-override-1qhpsh8).ant-table-wrapper .ant-table.ant-table-small tfoot>tr>th, :where(.css-dev-only-do-not-override-1qhpsh8).ant-table-wrapper .ant-table.ant-table-small tfoot>tr>td {
+  padding: 2px 8px;
 }
 

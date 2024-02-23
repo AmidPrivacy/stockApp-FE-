@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Col,  Select } from 'antd';  
-import { Search } from '../../types/search';
-import { fetchSellerList } from '../../api/user';
+import { Col,  Select } from 'antd';   
+import { fetchUserSellers } from '../../api/user';
    
 let { Option } = Select;
 
@@ -10,9 +9,9 @@ const FilterBySeller: React.FC<{ search: any, setSearch: Function }> = ({ search
   const [sellers, setSellers] = useState([]);
   
   useEffect(()=> {
-    fetchSellerList().then((res:any)=>{  
+    fetchUserSellers().then((res:any)=>{  
       if(res)
-      setSellers(res?.data?.data??[]) 
+      setSellers(res?.data??[]) 
     }).catch((err:any)=>{
       throw err;
     })
