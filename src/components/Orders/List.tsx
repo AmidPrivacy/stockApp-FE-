@@ -59,7 +59,11 @@ const List: React.FC<{ orders: any, handleTableChange: Function, pagination: any
       <Column title="Təklif qiyməti" key="buyer_price" render={(rec) => <> {rec.buyer_price}AZN </>} /> 
       <Column title="Satıcı qiyməti" key="seller_price" render={(rec) => <> {rec.product_price??0}AZN </>} /> 
       {/* <Column title="Məhsul sayı" dataIndex="count" key="count" />  */}
-      <Column title="Məhsul sayı" key="buyer-count" render={(rec) => <Tag> {rec.seller_count??rec.buyer_count} </Tag>} /> 
+      <Column title="Məhsul sayı" key="buyer-count" render={(rec) =>
+        <>
+          <Tag> {rec.buyer_count} </Tag>
+          {rec.seller_count ? <Tag color='red' style={{ marginLeft: "5px" }}> {rec.seller_count} </Tag> : null}
+        </> } /> 
       <Column title="Sifariş rəyi" key="description" render={(rec) => <div  dangerouslySetInnerHTML={{__html: rec.description}} />} />   
       {sessionStorage.getItem("role") !=="seller" ?
         <Column title="Satıcı firma" key="seller-name" render={(rec) => <> {rec.seller.name} </>} /> : null} 

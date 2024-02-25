@@ -159,10 +159,10 @@ body,
   }
   
   .Ticket .ticket-body .product-price {
-    font-size: 20px;
+    font-size: 16px;
     position: absolute;
     top: 204px;
-    left: 81px;
+    left: 51px;
     font-family: monospace;
   }
   

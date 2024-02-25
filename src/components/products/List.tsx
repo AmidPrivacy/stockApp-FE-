@@ -28,6 +28,7 @@ const List: React.FC<{ products: any, pagination:any, setSettings: Function, han
 
   const [printObj, setPrintObj] = useState({
     isModalVisible: false,
+    id: 0,
     productName: "",
     barcode: "",
     price: ""
@@ -114,7 +115,7 @@ const List: React.FC<{ products: any, pagination:any, setSettings: Function, han
                 
 
               <PrinterOutlined  style={{ cursor: "pointer", marginLeft: "13px" }} key={res.id+"a"+res.pivot.id}
-                onClick={()=>{ setPrintObj({ isModalVisible: true, productName: rec.name,
+                onClick={()=>{ setPrintObj({ isModalVisible: true, productName: rec.name, id: rec.id,
                                 barcode: res.pivot.barcode, price: res.pivot.price }) }}/> 
             </div>
             )} 

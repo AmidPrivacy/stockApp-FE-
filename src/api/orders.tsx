@@ -28,6 +28,13 @@ export const fetchOrderList = (page:any={}, search:any = {}) => {
 		console.log(err);
 		message.error("Sistem xətası");
 	});
+}; 
+
+export const fetchStatusList = () => {  
+	return axios.get(config().apiUrl + `/list/order-statuses`, { headers: config().headers }).catch(err => {
+		console.log(err);
+		message.error("Sistem xətası");
+	});
 };  
 
 

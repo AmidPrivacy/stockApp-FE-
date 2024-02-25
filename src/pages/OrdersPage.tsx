@@ -1,19 +1,37 @@
 import React, { useState, useEffect } from 'react';
-import { Row, Col, Breadcrumb } from 'antd';
-import { fetchOrderList } from "../api/orders";
+import { Row, Col, Breadcrumb, Select } from 'antd';
+import { fetchOrderList, fetchStatusList } from "../api/orders";
  
 // import Search from '../components/Orders/search';
 import List from '../components/Orders/List'; 
 import FilterBySeller from '../components/common/FilterBySeller';
+let { Option } = Select;
 
+enum statuses {
+  New = "Yeni",
+  Completed = "Tamamlanıb",
+  Rejected = "Geri qaytarılıb",
+  Pending = "Gözləmədə",
+  Cancelled = "Ləğv edilib",
+}
   
 const OrdersPage: React.FC = () => {
 
   const [search, setSearch]=useState({  
-    seller: ""
+    seller: "",
+    status: ""
   });
   const [orders, setOrders] = useState([]);  
+  const [statusList, setStatuses] = useState([]);  
   const [pagination, setPagination] = useState({ pageSize: 10, current: 1, total: 0 }); 
+
+  useEffect(() => { 
+    fetchStatusList().then((res:any)=> {
+      if(res !== undefined) {
+        setStatuses(res.data.data);
+      }
+    })
+   }, []);
 
   useEffect(() => { getOrders() }, [search]);
   
@@ -52,6 +70,16 @@ const OrdersPage: React.FC = () => {
         </Breadcrumb>
       </Col> 
       <FilterBySeller search={search} setSearch={setSearch} /> 
+      <Col span={5} offset={1} className="left-margin">
+        <Select style={{ width: "100%" }} value={search.status} className='inp-box' placeholder="Firma"
+          onChange={(e: any) => setSearch((prevState:any) => ({ ...prevState,  status: e }))}  
+          filterOption={(input, option: any) =>option.children[1].toLowerCase().indexOf(input.toLowerCase()) >= 0}>
+          <Option value={""} key="0"> Status seçin </Option>
+          {statusList.length > 0 ? statusList.map((res: any) => {
+            return (<Option value={res.value} key={res.value}> {statuses[res.name]} </Option>)
+          }) : null}
+        </Select> 
+      </Col>
     </Row>
 
     
